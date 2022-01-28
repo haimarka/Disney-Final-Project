@@ -1,0 +1,111 @@
+{"products":
+    [
+        {
+            "id": 0,
+            "name": "mickey mouse0",
+            "price": 20,
+            "quantity": 0,
+            "img": "https://images.ua.prom.st/2178084282_w640_h640_zhurnal-walt-disney.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 1,
+            "name": "donald duck1",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://i.pinimg.com/564x/d2/2e/1e/d22e1e695ff403fc679227c5b2087bc2.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 2,
+            "name": "mickey mouse2",
+            "price": 20,
+            "quantity": 0,
+            "img": "https://cdn.icon-icons.com/icons2/492/PNG/512/Disney_icons_48184.png",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 3,
+            "name": "donald duck3",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://m.media-amazon.com/images/I/41NbQKPYPrL.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 4,
+            "name": "mickey mouse4",
+            "price": 20,
+            "quantity": 0,
+            "img": "https://i.pinimg.com/564x/a2/63/8a/a2638a9de0c207a6f7a90cabd8a5a594.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 5,
+            "name": "donald duck5",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://i.pinimg.com/originals/99/88/73/998873ea2f186d3f039135e185b36a22.gif",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 6,
+            "name": "mickey mouse6",
+            "price": 20,
+            "quantity": 0,
+            "img": "https://www.kindpng.com/picc/m/17-170015_donkey-from-shrek-hd-png-download.png",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 7,
+            "name": "donald duck7",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://www.pngall.com/wp-content/uploads/2/Shrek-PNG-Transparent-HD-Photo.png",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 8,
+            "name": "donald duck7",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://cdn.icon-icons.com/icons2/492/PNG/512/Disney_icons_48183.png",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 9,
+            "name": "donald duck7",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://static.turbosquid.com/Preview/2019/05/30__12_25_53/mike5.PNG10B5D926-6555-4684-80C8-BCB1D2C18FC6Default.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 10,
+            "name": "donald duck7",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://s7.orientaltrading.com/is/image/OrientalTrading/VIEWER_ZOOM/monsters-university-sulley-cardboard-stand-up~13635482",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 11,
+            "name": "donald duck7",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://www.kindpng.com/picc/m/316-3161079_aladdin-aladdin-hd-png-download.png",
+            "added": false,
+            "message": ""
+        }
+    ]}
