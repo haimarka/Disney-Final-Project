@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import Styles from '../../CSS/Styles.module.css'
 
 
-export default function InCinemas({moviesData,movieTrailer, setMovieTrailer,colorReversal ,fontIncrease}) {
+export default function InCinemas({moviesData,movieTrailer, setMovieTrailer,colorReversal ,fontIncrease, addMovies}) {
     const [goBack, setGoBack] = useState(false)
     const [searchInput, setSearchInput] = useState('');
 
@@ -31,6 +31,8 @@ export default function InCinemas({moviesData,movieTrailer, setMovieTrailer,colo
                             <img className={Styles.movieCard} onClick={()=>{setMovieTrailer(movie.src)}} src={movie.img}/>
                             <h3 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>{movie.name}</h3>
                             <h4 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>Movie Length: {movie.time}</h4>
+                            <button onClick={()=>{addMovies(i);console.log(movie.added)}}>add movie</button>
+                            <p>{movie.message}</p>
                         </section>
                         )
                 }

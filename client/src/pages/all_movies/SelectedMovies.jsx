@@ -2,11 +2,10 @@ import {useState} from 'react';
 import {Redirect} from 'react-router-dom';
 import Styles from '../../CSS/Styles.module.css'
 
-export default function SelectedMovies({moviesData,movieTrailer, setMovieTrailer, movieSrc, setMovieSrc, colorReversal ,fontIncrease}) {
+export default function SelectedMovies({moviesData,movieTrailer, setMovieTrailer, movieSrc, setMovieSrc, colorReversal ,fontIncrease,addMovies, watchList}) {
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   
-
   if(goBack) return <Redirect to='/AllMovies'/>
   if(movieTrailer||movieSrc) return <Redirect to='/MoviesSolution'/>
 
@@ -29,6 +28,8 @@ export default function SelectedMovies({moviesData,movieTrailer, setMovieTrailer
                       <img className={Styles.movieCard} onClick={()=>{setMovieTrailer(movie.src);setMovieSrc(movie.watchMovie)}} src={movie.img}/>
                       <h3 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>{movie.name}</h3>
                       <h4 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>Movie Length: {movie.time}</h4>
+                      <button onClick={()=>{addMovies(i);console.log(movie.added)}}>add movie</button>
+                      <p>{movie.message}</p>
                   </section>
                   )
           }

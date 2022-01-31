@@ -33,16 +33,17 @@ export default function Home({auth, fontIncrease, colorReversal}) {
             <img src="https://www.91-cdn.com/hub/wp-content/uploads/2021/07/Disney-movies-to-watch.jpeg" alt="" />
             </div>
             <div className={Styles.card}>
-                <img src="http://blog.touringplans.com/wp-content/uploads/2014/12/Disney_MCOkk.jpg" alt="" />
+                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/disney-movies-1613592418.jpg" alt="" />
             </div>
             <div className={Styles.card}>
-                <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/disney-movies-1613592418.jpg" alt="" />
+                <img src="https://static-assets.bamgrid.com/product/disneyplus/images/share-default.14fadd993578b9916f855cebafb71e62.png" alt="" />
+                
             </div>
             <div className={Styles.card}>
                 <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/index-best-disney-movies-1532711573.jpg" alt="" />
             </div>
             <div className={Styles.card}>
-                <img src="https://cdn.pixabay.com/photo/2016/10/27/22/26/mickey-mouse-1776689_960_720.jpg" alt="" />
+                <img src="http://blog.touringplans.com/wp-content/uploads/2014/12/Disney_MCOkk.jpg" alt="" />
             </div>
           </section>
     </div>

@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
 import {Home,Register,LogIn,ChangePassword,AllMovies,Navigation,Accessibilty,MoviesSolution} from './components'
-import {ContactUs,About,Store,Cart } from './pages'
+import {ContactUs,About,Store,Cart, WatchList } from './pages'
 import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
 import useFetch from "./Hooks/useFetch";
 import useFetchMovies from "./Hooks/useFetchMovies";
@@ -19,6 +19,7 @@ function App() {
   const [accessibilyList, setAccessibilyList] = useState("block");
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [movieSrc, setMovieSrc] = useState(null);
+  const [watchList, setWatchList] = useState(null);
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
   const AUTH_LOCAL_STORAGE = "Users";
@@ -34,6 +35,18 @@ function App() {
     document.location.href = "/";
   };
 
+  const addMovies = (i)=>{
+    let temp = [...moviesData];
+    temp[i].added = true;
+    temp[i].message = 'Movie Added';
+    setWatchList(temp);
+  }
+
+  const removeMovies = (i)=>{
+    let temp = [...moviesData];
+    temp[i].added = false;
+    setWatchList(temp);
+  }
 
   const calculatePrice = (updateData)=>{
     let price = 0; let quantity = 0;
@@ -130,6 +143,7 @@ return (
                 setMovieSrc={setMovieSrc} 
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                addMovies={addMovies}
               />
             )}
           />
@@ -140,6 +154,7 @@ return (
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                addMovies={addMovies}
               />
             )}
           />
@@ -150,6 +165,7 @@ return (
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                addMovies={addMovies}
               />
             )}
           />
@@ -160,6 +176,7 @@ return (
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                addMovies={addMovies}
               />
             )}
           />
@@ -170,6 +187,7 @@ return (
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                addMovies={addMovies}
               />
             )}
           />
@@ -212,6 +230,17 @@ return (
               />
             )}
           />
+          <Route exact path="/WatchList" render={() => ( <WatchList
+           moviesData={moviesData}
+            setWatchList={setWatchList}
+            fontIncrease={fontIncrease}
+            colorReversal={colorReversal}
+            setMovieTrailer={setMovieTrailer}
+            setMovieSrc={setMovieSrc} 
+            movieTrailer={movieTrailer}
+            movieSrc={movieSrc}
+            removeMovies={removeMovies}
+            />)}/>
         </Switch>{" "}
         <br />
         <footer style={{

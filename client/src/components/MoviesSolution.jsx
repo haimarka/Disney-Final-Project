@@ -21,7 +21,7 @@ import {VideoFrame} from '.';
               /></div> <br />
               {/* https://s1.sratim.video/movie/SD/480/2041.mp4?token=Ly_4L7A4ABOH2BgrWm0hpg&time=1643243598&uid= */}
          <Link to='/AllMovies'><button style={{marginLeft:'1%'}} onClick={()=>{setMovieTrailer(null);setMovieSrc(null)}}>Go Back</button></Link>
-         <button style={{marginLeft:'10%'}}><a href={movieSrc}>Movie</a></button>
+         <button style={{marginLeft:'10%'}}><a style={{textDecoration:'none',color: 'black'}} href={movieSrc}>Watch Movie</a></button>
 
         </div>
   );
