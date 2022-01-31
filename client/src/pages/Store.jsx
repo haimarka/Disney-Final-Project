@@ -2,7 +2,14 @@ import Styles from '../CSS/Styles.module.css'
 
 
 export default function Store({data,  cartTotalPrice, cartTotalQuantity, colorReversal, fontIncrease, addProducts, subtractProducts}) {
-    
+  // const getProducts = ()=>{
+  //   axios
+  //   .get('/ContactUs',{
+  //     name, email, message
+  //   })
+  //   .then(res=>console.log(res))
+  //   .catch(err=>console.log(err.response))
+  // }
 
     const elements =  data.map((product,i)=>{
     return (

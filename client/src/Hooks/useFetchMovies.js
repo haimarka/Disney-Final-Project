@@ -12,7 +12,7 @@ export default function useFetchMovies(URL){
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
-            setMoviesData(data.movies)
+            setMoviesData(data)
         })
         .catch(err=>console.log(err))
     }

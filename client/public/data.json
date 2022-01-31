@@ -1,4 +1,4 @@
-{"products":
+
     [
         {
             "id": 0,
@@ -6,6 +6,15 @@
             "price": 20,
             "quantity": 0,
             "img": "https://images.ua.prom.st/2178084282_w640_h640_zhurnal-walt-disney.jpg",
+            "added": false,
+            "message": ""
+        },
+        {
+            "id": 777,
+            "name": "donald duck",
+            "price": 30,
+            "quantity": 0,
+            "img": "https://upload.wikimedia.org/wikipedia/he/0/07/Donald_Duck1.gif",
             "added": false,
             "message": ""
         },
@@ -108,4 +117,4 @@
             "added": false,
             "message": ""
         }
-    ]}
+    ]

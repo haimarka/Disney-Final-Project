@@ -13,7 +13,7 @@ function App() {
   const [auth, setAuth] = useState(null);
   const [data, setData] = useFetch("./data.json");
   const [moviesData] = useFetchMovies("./moviesData.json");
-  const [colorReversal, setColorReversal] = useState(false);
+  const [colorReversal, setColorReversal] = useState(false); 
   const [fontIncrease, setFontIncrease] = useState(false);
   const [highlighting, setHighlighting] = useState(false);
   const [accessibilyList, setAccessibilyList] = useState("block");
@@ -127,7 +127,9 @@ return (
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData} 
                 movieSrc={movieSrc}
-                setMovieSrc={setMovieSrc}
+                setMovieSrc={setMovieSrc} 
+                colorReversal={colorReversal}
+                fontIncrease={fontIncrease}
               />
             )}
           />
@@ -136,6 +138,8 @@ return (
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData}
+                colorReversal={colorReversal}
+                fontIncrease={fontIncrease}
               />
             )}
           />
@@ -144,6 +148,8 @@ return (
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData}
+                colorReversal={colorReversal}
+                fontIncrease={fontIncrease}
               />
             )}
           />
@@ -152,6 +158,8 @@ return (
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData}
+                colorReversal={colorReversal}
+                fontIncrease={fontIncrease}
               />
             )}
           />
@@ -160,6 +168,8 @@ return (
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData}
+                colorReversal={colorReversal}
+                fontIncrease={fontIncrease}
               />
             )}
           />
@@ -207,7 +217,7 @@ return (
         <footer style={{
               fontSize: fontIncrease ? "300%" : "150%",
               color: colorReversal ? "white" : "black",
-              transition: "1s",
+              transition: "1s"
           }}
           className={Styles.footer}
         >

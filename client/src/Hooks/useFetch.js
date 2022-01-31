@@ -10,7 +10,7 @@ export default function useFetch(URL){
         .then(res=>res.json())
         .then(data=>{
             console.log(data);
-            setData(data.products);
+            setData(data);
         })
         .catch(err=>console.log(err))
     }

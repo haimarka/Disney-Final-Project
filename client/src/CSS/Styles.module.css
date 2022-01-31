@@ -23,6 +23,8 @@
     position: fixed;
     margin-left: -49%;
     margin-top: 1%;
+    z-index: 1;
+
 }
 
 .accessibilty{
@@ -33,6 +35,8 @@
     transition: 0.5s;
     width: 70px;
     height: 70px;   
+    z-index: 1;
+
 }
 
 .accessibilty:hover{
@@ -41,7 +45,7 @@
 }
 
 .accessibiltyList{
-    position: absolute;
+    position: fixed;
     border-radius: 5%;
     margin-left: 1%;
     margin-top: 10%;
@@ -271,7 +275,7 @@
     margin-left: 2%;
 }
 
-.movieConteiner11{
+.movieConteiner{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -279,7 +283,7 @@
 
 }
 
-.movieConteiner{
+.cardCointeiner{
     border: solid 3px rgb(0, 0, 0);
     border-radius: 5px;
     width: 20%;
@@ -296,13 +300,16 @@
 .movieCard{
     width: 99%;
     height: 65%;
-    
 }
 
+.allMovies:hover{
+    transform: rotate(360deg);
+}
 
-  /* .aboutParagraph{
-      width: 40%;
-  } */
+th{
+    background-color: lightgreen;
+}
+
 
 
 

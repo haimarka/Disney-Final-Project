@@ -1,1 +1,31 @@
-GET http://localhost:3000/Products
+GET http://localhost:8082/products
+
+###
+
+POST http://localhost:8082/products
+Content-Type: application/json
+
+
+###
+# Movies
+
+GET http://localhost:8082/Movies
+
+###
+
+POST http://localhost:8082/Movies
+Content-Type: application/json
+
+
+###
+# ContactUs
+
+GET http://localhost:8082/ContactUs
+
+###
+
+POST http://localhost:8082/ContactUs
+Content-Type: application/json
+
+
+###
