@@ -74,13 +74,13 @@ export default function Navigation({highlighting ,colorReversal, auth}) {
           >
             Contact Us
           </Link>{" "}
-          <Link  className={Styles.links}
+          {auth?<Link  className={Styles.links}
               style={{
               color: colorReversal ? "white" : "black",
               background: highlighting ? "orange" : "rgb(1, 35, 131)",
               textDecoration: "none",
             }} to="/WatchList">
-              Watch List</Link>
+              Watch List</Link>:''}
           {!auth ? (
             <Link
               className={(Styles.links, Styles.registerBtn)}

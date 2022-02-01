@@ -1,0 +1,13 @@
+# ContactUs
+
+GET http://localhost:8082/movies
+
+###
+
+POST http://localhost:8082/movies
+Content-Type: application/json
+
+
+###
+
+DELETE http://localhost:8082/movies/

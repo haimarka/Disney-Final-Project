@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import {VideoFrame} from '.';
+import React from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
+import {VideoFrame} from '../components';
 
  const MoviesSolution = ({ movieTrailer, setMovieTrailer, auth, name, movieSrc, setMovieSrc}) => {
-    if(!auth){
+  const history = useHistory();  
+  if(!auth){
      return <Redirect to='/LogIn'/>
     }
 
@@ -19,8 +20,13 @@ import {VideoFrame} from '.';
                   width='720'
                   height='420'
               /></div> <br />
+              {/* {movieSrc?<iframe src={movieSrc} width="540" height="450"></iframe>:null} */}
               {/* https://s1.sratim.video/movie/SD/480/2041.mp4?token=Ly_4L7A4ABOH2BgrWm0hpg&time=1643243598&uid= */}
-         <Link to='/AllMovies'><button style={{marginLeft:'1%'}} onClick={()=>{setMovieTrailer(null);setMovieSrc(null)}}>Go Back</button></Link>
+         <button onClick={()=>{
+           setMovieTrailer(null);
+           setMovieSrc(null);
+           history.goBack()}} style={{marginLeft:'1%'}}>Go Back</button>
+
          <button style={{marginLeft:'10%'}}><a style={{textDecoration:'none',color: 'black'}} href={movieSrc}>Watch Movie</a></button>
 
         </div>

@@ -3,7 +3,14 @@ import Styles from '../CSS/Styles.module.css'
 
 export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorReversal,
   fontIncrease, addProducts, subtractProducts}) {
-
+    // const getProducts = ()=>{
+    //   axios
+    //   .get('http://localhost:8082/products',{
+    //     name, email, message
+    //   })
+    //   .then(res=>console.log(res))
+    //   .catch(err=>console.log(err.response))
+    // }
     const elements =  data.map((product,i)=>{
     return (
         <div style={{border:'solid 3px black'}} key={product.id}>

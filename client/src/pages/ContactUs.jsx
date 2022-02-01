@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Styles from '../CSS/Styles.module.css'
 
 
@@ -8,9 +8,10 @@ export default function ContactUs() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     let elements = [];
+    
     const getPosts = ()=>{
       axios
-      .post('/ContactUs',{
+      .post('http://localhost:8082/contact-us',{
         name, email, message
       })
       .then(res=>console.log(res))
@@ -26,7 +27,6 @@ export default function ContactUs() {
                 e.preventDefault();
                 console.log(name,email, message);
                 getPosts()
-                console.log(elements);
             }}>
                 <input onChange={(e)=>setName(e.target.value)} type="text" placeholder='enter your name' /><br />
                 <input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder='enter your email' /><br />

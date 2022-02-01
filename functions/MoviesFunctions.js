@@ -16,7 +16,7 @@ const MongoDB = require("mongodb"),
             })
         })
         .catch(err=>{
-            console.log('U R Bad');
+            console.log('there is a mistake');
             throw err.response
         })
     }
@@ -31,9 +31,24 @@ const MongoDB = require("mongodb"),
             })
         })
             .catch((err) => {
+                console.log('there is a mistake');
                 throw err.response
             })
     }
 
+    function deleteMovie(req,res){
+        MongoClient.connect(MongoUrl).then((db)=>{
+            const id = {_id:ObjectId(req.params.id)}; // change the id to mongo id so he cen read it
+            dbo = db.db(dbName)
+            dbo.collection(collectionName).deleteOne(id).then(product=>{
+               return res.send(product).status(200);
+            })
+        })
+        .catch(err=>{
+            console.log('there is a mistake');
+            throw err.response
+        })
+    }
 
-    module.exports = {getMovies, postMovies}
+
+    module.exports = {getMovies, postMovies, deleteMovie}

@@ -1,0 +1,22 @@
+# Products
+
+GET http://localhost:8082/products
+
+###
+
+POST http://localhost:8082/products
+Content-Type: application/json
+
+{
+    "id": 0,
+    "name": "mickey mouse0",
+    "price": 20,
+    "quantity": 0,
+    "img": "https:upload.wikimedia.org/wikipedia/he/0/07/Donald_Duck1.gif",
+    "added": false,
+    "message": ""
+}
+
+###
+
+DELETE http://localhost:8082/products/61f9b308586fc2b0fa536299

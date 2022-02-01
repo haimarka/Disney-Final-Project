@@ -269,10 +269,22 @@
     transform: scale(1.105);
   }
 
+  .allMoviesContainer a{
+      position: relative;
+      /* height: 50vh; */
+  }
 .allMovies{
     width: 250px;
     height: 400px;
     margin-left: 2%;
+    transition: 1s;
+}
+
+
+.allMovies:hover{
+    box-shadow: 20px 20px 20px lightBlue;
+    transition: 1s;
+
 }
 
 .movieConteiner{
@@ -302,14 +314,30 @@
     height: 65%;
 }
 
-.allMovies:hover{
-    transform: rotate(360deg);
-}
 
 th{
     background-color: lightgreen;
 }
+/* a{
+    position: relative;
+} */
 
+.beforeHover{
+    position: absolute;
+    left:40%;
+    top: -110%;
+    z-index: -1;
+    transition: 1s;
+}
+
+.afterHover{
+    position: absolute;
+    left: 40%;
+    top: 45%;
+    z-index: 1;
+    transition: 1s;
+
+}
 
 
 

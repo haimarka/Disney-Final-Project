@@ -26,8 +26,8 @@ export default function Accessibilty({setAccessibilyList,accessibilyList,setHigh
               }}
               src={
                 colorReversal
-                  ? "https://cdn-icons.flaticon.com/png/512/3417/premium/3417806.png?token=exp=1643195019~hmac=a1c544c44f94ae3483ebb640417fc4dd"
-                  : "https://cdn-icons.flaticon.com/png/512/3417/premium/3417815.png?token=exp=1643221895~hmac=790391e2c72efbd387d33c623f65e0b8"
+                  ? "https://cdn-icons.flaticon.com/png/512/3417/premium/3417815.png?token=exp=1643751513~hmac=6935c4a80c9045fa62c38ee1d9a7fe70"
+                  : "https://cdn-icons.flaticon.com/png/512/3417/premium/3417806.png?token=exp=1643751513~hmac=e863b2a2f7e401385e82ec2457cb0629"
               }
               alt="font increse"
             />

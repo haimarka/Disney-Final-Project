@@ -1,11 +1,11 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./App.css";
-import {Home,Register,LogIn,ChangePassword,AllMovies,Navigation,Accessibilty,MoviesSolution} from './components'
-import {ContactUs,About,Store,Cart, WatchList } from './pages'
-import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
 import useFetch from "./Hooks/useFetch";
 import useFetchMovies from "./Hooks/useFetchMovies";
+import {Navigation,Accessibilty} from './components'
+import {ContactUs,About,Store,Cart, WatchList,Home,Register,LogIn,ChangePassword,AllMovies, MoviesSolution, ErrorPage } from './pages';
+import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
+import "./App.css";
 import Styles from "./CSS/Styles.module.css";
 
 
@@ -79,7 +79,8 @@ const subtractProducts = (i)=>{
 
 
 return (
-<BrowserRouter>
+<BrowserRouter >
+
 <div className="App" style={{ backgroundColor: colorReversal ? "black" : "white" }}>
     <Navigation highlighting={highlighting} colorReversal={colorReversal} auth={auth}/>
   {/*  logo */}
@@ -101,7 +102,6 @@ return (
             sign out
           </button>
         ) : ("")}
-        
         
         <Switch>
           <Route exact path="/" render={() => (
@@ -137,24 +137,27 @@ return (
           <Route exact path="/SelectedMovies" render={() => (
               <SelectedMovies
                 movieTrailer={movieTrailer}
-                setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData} 
+                setMovieTrailer={setMovieTrailer}
                 movieSrc={movieSrc}
                 setMovieSrc={setMovieSrc} 
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
+                auth={auth}
               />
             )}
           />
           <Route exact path="/InCinemas" render={() => (
               <InCinemas
                 movieTrailer={movieTrailer}
+                setMovieSrc={setMovieSrc} 
                 setMovieTrailer={setMovieTrailer}
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
+                auth={auth}
               />
             )}
           />
@@ -162,10 +165,12 @@ return (
               <FamilyMovies
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
+                setMovieSrc={setMovieSrc} 
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
+                auth={auth}
               />
             )}
           />
@@ -173,10 +178,12 @@ return (
               <WatchAtHome
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
+                setMovieSrc={setMovieSrc} 
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
+                auth={auth}
               />
             )}
           />
@@ -184,10 +191,12 @@ return (
               <MoreMovies
                 movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
+                setMovieSrc={setMovieSrc} 
                 moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
+                auth={auth}
               />
             )}
           />
@@ -241,6 +250,9 @@ return (
             movieSrc={movieSrc}
             removeMovies={removeMovies}
             />)}/>
+            
+            <Route exact path="*" render={() => ( <ErrorPage/>)}/>
+
         </Switch>{" "}
         <br />
         <footer style={{
