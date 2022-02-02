@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Redirect,useHistory} from 'react-router-dom';
+import CreateMovie from '../../components/CreateMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 export default function WatchAtHome({moviesData,setMovieSrc, setMovieTrailer
@@ -11,8 +12,8 @@ export default function WatchAtHome({moviesData,setMovieSrc, setMovieTrailer
     if(goBack) { return <Redirect to='/AllMovies'/>}
     
     const handleMovieClick = (movie)=>{
-        setMovieTrailer(movie.src);
-        setMovieSrc(movie.watchMovie);
+        setMovieTrailer(movie.trailerSrc);
+        setMovieSrc(movie.movieSrc);
         history.push('/MoviesSolution')
       }
 
@@ -41,6 +42,7 @@ export default function WatchAtHome({moviesData,setMovieSrc, setMovieTrailer
                         )
                 }
                 })}</div>
+                <CreateMovie/>
             <button onClick={()=>setGoBack(true)}>Go Back</button>
         </div>
         );

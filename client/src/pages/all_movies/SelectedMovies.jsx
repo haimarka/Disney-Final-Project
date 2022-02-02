@@ -1,17 +1,19 @@
 import {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
+import CreateMovie from '../../components/CreateMovie';
+
 import Styles from '../../CSS/Styles.module.css'
 
 export default function SelectedMovies({moviesData, setMovieTrailer,
-   movieSrc, setMovieSrc, colorReversal ,fontIncrease,addMovies, auth}) {
+    setMovieSrc, colorReversal ,fontIncrease,addMovies, auth}) {
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
   if(goBack) { return <Redirect to='/AllMovies'/>}
     
 const handleMovieClick = (movie)=>{
-  setMovieTrailer(movie.src);
-  setMovieSrc(movie.watchMovie);
+  setMovieTrailer(movie.trailerSrc);
+  setMovieSrc(movie.movieSrc);
   history.push('/MoviesSolution')
 }
 
@@ -40,6 +42,7 @@ const handleMovieClick = (movie)=>{
                   )
           }
                 })}</div>
+                <CreateMovie/>
          <button onClick={()=>setGoBack(true)}>Go Back</button>
       
        </div>

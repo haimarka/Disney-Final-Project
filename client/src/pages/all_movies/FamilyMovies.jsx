@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
+import CreateMovie from '../../components/CreateMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 export default function FamilyMovies({moviesData,setMovieSrc, setMovieTrailer,colorReversal 
@@ -10,8 +11,8 @@ export default function FamilyMovies({moviesData,setMovieSrc, setMovieTrailer,co
   if(goBack) {return <Redirect to='/AllMovies'/>}
 
   const handleMovieClick = (movie)=>{
-    setMovieTrailer(movie.src);
-    setMovieSrc(movie.watchMovie);
+    setMovieTrailer(movie.trailerSrc);
+    setMovieSrc(movie.movieSrc);
     history.push('/MoviesSolution')
   }
 
@@ -41,6 +42,7 @@ export default function FamilyMovies({moviesData,setMovieSrc, setMovieTrailer,co
                     )
                 }
                 })}</div>
+                <CreateMovie/>
       <button onClick={()=>setGoBack(true)}>Go Back</button>
     </div>
   );

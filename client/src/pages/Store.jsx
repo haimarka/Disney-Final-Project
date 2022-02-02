@@ -10,6 +10,7 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
     const [quantity, setQuantity] = useState('')
     const [message, setMessage] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const [showForm, setShowForm] = useState(false)
     const getProducts = ()=>{
       axios
       .post('http://localhost:8082/products',{
@@ -38,7 +39,9 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
            <h2>total Quantity: {cartTotalQuantity}</h2>
            <h2>total Price: {cartTotalPrice}</h2>
         </section>
-        <form onSubmit={(e)=>{
+        <h2>add product</h2>
+
+        {showForm?<form onSubmit={(e)=>{
           e.preventDefault();
           console.log(name, price, quantity, message, imageUrl);
           getProducts();
@@ -48,8 +51,9 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
             <input onChange={(e)=>setQuantity(e.target.value)} type="text" placeholder='enter quantity' /><br />
             <input onChange={(e)=>setMessage(e.target.value)} type="text" placeholder='enter message' /><br />
             <input onChange={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
-            <input type="submit" value="upload" />
-        </form>
+            <input type="submit" value="upload" /><br /><br />
+            <button onClick={()=>setShowForm(false)}>hide form</button>
+        </form>:<button onClick={()=>setShowForm(true)}>add product</button>}
     </div>
   );
 }
