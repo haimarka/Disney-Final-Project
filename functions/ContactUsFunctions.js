@@ -23,7 +23,7 @@ const collectionName = "ContectUs";
 
     
 
-function postMessages(req, res) {
+function createMessages(req, res) {
     MongoClient.connect(MongoUrl).then((db) => {
         const createMessage = req.body;
         dbo = db.db(dbName);
@@ -52,4 +52,4 @@ function deleteMessages(req,res){
 }
 
 
-    module.exports = {getMessages, postMessages, deleteMessages}
+    module.exports = {getMessages, createMessages, deleteMessages}

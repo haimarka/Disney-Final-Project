@@ -1,16 +1,23 @@
+import { useState } from 'react'
+import axios from 'axios';
 import Styles from '../CSS/Styles.module.css'
 
 
 export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorReversal,
   fontIncrease, addProducts, subtractProducts}) {
-    // const getProducts = ()=>{
-    //   axios
-    //   .get('http://localhost:8082/products',{
-    //     name, email, message
-    //   })
-    //   .then(res=>console.log(res))
-    //   .catch(err=>console.log(err.response))
-    // }
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    const [quantity, setQuantity] = useState('')
+    const [message, setMessage] = useState('')
+    const [imageUrl, setImageUrl] = useState('')
+    const getProducts = ()=>{
+      axios
+      .post('http://localhost:8082/products',{
+        name, price, quantity, message, imageUrl
+      })
+      .then(res=>console.log(res))
+      .catch(err=>console.log(err.response))
+    }
     const elements =  data.map((product,i)=>{
     return (
         <div style={{border:'solid 3px black'}} key={product.id}>
@@ -31,6 +38,18 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
            <h2>total Quantity: {cartTotalQuantity}</h2>
            <h2>total Price: {cartTotalPrice}</h2>
         </section>
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          console.log(name, price, quantity, message, imageUrl);
+          getProducts();
+        }}>
+            <input onChange={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
+            <input onChange={(e)=>setPrice(e.target.value)} type="text" placeholder='enter price' /><br />
+            <input onChange={(e)=>setQuantity(e.target.value)} type="text" placeholder='enter quantity' /><br />
+            <input onChange={(e)=>setMessage(e.target.value)} type="text" placeholder='enter message' /><br />
+            <input onChange={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
+            <input type="submit" value="upload" />
+        </form>
     </div>
   );
 }

@@ -1,13 +1,43 @@
-# ContactUs
+# Movies
 
 GET http://localhost:8082/movies
+
+###
+
+GET http://localhost:8082/movies/61f9bdf7b8d0c208208a8edd
 
 ###
 
 POST http://localhost:8082/movies
 Content-Type: application/json
 
+{
+    "id": 0,
+    "name": "Avatar",
+    "img": "https://www.dvdplanetstore.pk/wp-content/uploads/2017/12/bKPtXn9n4M4s8vvZrbw40mYsefB.jpg",
+    "src": "https://www.youtube.com/embed/7pTs8v-fFw0",
+    "time": "1:05",
+    "watchMovie": "https://s1.sratim.video/movie/SD/480/2041.mp4?token=Ly_4L7A4ABOH2BgrWm0hpg&time=1643243598&uid=",
+    "categories": "SelectedMovies"
+}
 
 ###
 
-DELETE http://localhost:8082/movies/
+DELETE http://localhost:8082/movies/61f9b748db167f3c1ff18d8f
+
+###
+
+PATCH http://localhost:8082/movies/61f9bdf7b8d0c208208a8edd
+Content-Type: application/json
+
+{
+    "id": 8,
+    "name": "Avatar2222",
+    "img": "https://www.dvdplanetstore.pk/wp-content/uploads/2017/12/bKPtXn9n4M4s8vvZrbw40mYsefB.jpg",
+    "src": "https://www.youtube.com/embed/7pTs8v-fFw0",
+    "time": "1:05",
+    "watchMovie": "https://s1.sratim.video/movie/SD/480/2041.mp4?token=Ly_4L7A4ABOH2BgrWm0hpg&time=1643243598&uid=",
+    "categories": "SelectedMovies"
+}
+
+###
