@@ -22,6 +22,7 @@ function App() {
   const [watchList, setWatchList] = useState(null);
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
+  const [productsData, setProductsData] = useState([])
   const AUTH_LOCAL_STORAGE = "Users";
 
   useEffect(() => {
@@ -36,14 +37,14 @@ function App() {
   };
 
   const addMovies = (i)=>{
-    let temp = [...moviesData];
+    let temp = [...productsData];
     temp[i].added = true;
     temp[i].message = 'Movie Added';
     setWatchList(temp);
   }
 
   const removeMovies = (i)=>{
-    let temp = [...moviesData];
+    let temp = [...productsData];
     temp[i].added = false;
     setWatchList(temp);
   }
@@ -136,67 +137,66 @@ return (
           />
           <Route exact path="/SelectedMovies" render={() => (
               <SelectedMovies
-                movieTrailer={movieTrailer}
-                moviesData={moviesData} 
                 setMovieTrailer={setMovieTrailer}
-                movieSrc={movieSrc}
                 setMovieSrc={setMovieSrc} 
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
-                auth={auth}
+                auth={auth} 
+                productsData={productsData}
+                setProductsData={setProductsData}
               />
             )}
           />
           <Route exact path="/InCinemas" render={() => (
               <InCinemas
-                movieTrailer={movieTrailer}
                 setMovieSrc={setMovieSrc} 
                 setMovieTrailer={setMovieTrailer}
-                moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
+                productsData={productsData}
+                setProductsData={setProductsData}
               />
             )}
           />
           <Route exact path="/FamilyMovies" render={() => (
               <FamilyMovies
-                movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 setMovieSrc={setMovieSrc} 
-                moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
+                productsData={productsData}
+                setProductsData={setProductsData}
               />
             )}
           />
           <Route exact path="/WatchAtHome" render={() => (
               <WatchAtHome
-                movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 setMovieSrc={setMovieSrc} 
-                moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
+                productsData={productsData}
+                setProductsData={setProductsData}
               />
             )}
           />
           <Route exact path="/MoreMovies" render={() => (
               <MoreMovies
-                movieTrailer={movieTrailer}
                 setMovieTrailer={setMovieTrailer}
                 setMovieSrc={setMovieSrc} 
-                moviesData={moviesData}
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
+                productsData={productsData}
+                setProductsData={setProductsData}
               />
             )}
           />
@@ -216,7 +216,6 @@ return (
                 colorReversal={colorReversal}
                 cartTotalPrice={cartTotalPrice}
                 cartTotalQuantity={cartTotalQuantity}
-                data={data}
               />
             )}
           />
@@ -240,15 +239,13 @@ return (
             )}
           />
           <Route exact path="/WatchList" render={() => ( <WatchList
-           moviesData={moviesData}
             setWatchList={setWatchList}
             fontIncrease={fontIncrease}
             colorReversal={colorReversal}
             setMovieTrailer={setMovieTrailer}
             setMovieSrc={setMovieSrc} 
-            movieTrailer={movieTrailer}
-            movieSrc={movieSrc}
             removeMovies={removeMovies}
+            productsData={productsData} 
             />)}/>
             
             <Route exact path="*" render={() => ( <ErrorPage/>)}/>

@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios';
 import Styles from '../CSS/Styles.module.css'
 
 
-export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorReversal,
+export default function Store({cartTotalPrice, cartTotalQuantity, colorReversal,
   fontIncrease, addProducts, subtractProducts}) {
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -11,17 +11,35 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
     const [message, setMessage] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [showForm, setShowForm] = useState(false)
+    const [productsData, srtProductsData] = useState([])
+    useEffect(()=>getProducts(),[])
+
     const getProducts = ()=>{
+      axios
+      .get('http://localhost:8082/products',{
+        name, price, quantity, message, imageUrl
+      })
+      .then(res=>{
+        srtProductsData(res.data);
+      })
+      .catch(err=>console.log(err.response))
+    }
+
+
+    const postProducts = ()=>{
       axios
       .post('http://localhost:8082/products',{
         name, price, quantity, message, imageUrl
       })
-      .then(res=>console.log(res))
+      .then(res=>{
+        console.log(res);
+        getProducts();
+      })
       .catch(err=>console.log(err.response))
     }
-    const elements =  data.map((product,i)=>{
+    const elements =  productsData.map((product,i)=>{
     return (
-        <div style={{border:'solid 3px black'}} key={product.id}>
+        <div style={{border:'solid 3px black'}} key={i}>
                 <img width='200px' height='200px' src={product.img} />
                 <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.name}</p>
                 <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.price}</p>
@@ -44,7 +62,7 @@ export default function Store({ data,  cartTotalPrice, cartTotalQuantity, colorR
         {showForm?<form onSubmit={(e)=>{
           e.preventDefault();
           console.log(name, price, quantity, message, imageUrl);
-          getProducts();
+          postProducts();
         }}>
             <input onChange={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
             <input onChange={(e)=>setPrice(e.target.value)} type="text" placeholder='enter price' /><br />

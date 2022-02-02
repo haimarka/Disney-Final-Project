@@ -1,15 +1,27 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
 import CreateMovie from '../../components/CreateMovie';
+import axios from 'axios';
 import Styles from '../../CSS/Styles.module.css'
 
 
-export default function InCinemas({moviesData,setMovieSrc, setMovieTrailer
-    ,colorReversal ,fontIncrease, addMovies, auth}) {
+export default function InCinemas({setMovieSrc, setMovieTrailer
+    ,colorReversal ,fontIncrease, addMovies, auth, productsData, setProductsData}) {
     const [goBack, setGoBack] = useState(false)
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory();
+    useEffect(()=>getProducts(),[])
     if(goBack) { return <Redirect to='/AllMovies'/>}
+
+
+  const getProducts = ()=>{
+    axios 
+    .get('http://localhost:8082/Movies')
+    .then(res=>{
+      setProductsData(res.data);
+    })
+    .catch(err=>console.log(err.response))
+  }
 
     const handleMovieClick = (movie)=>{
         setMovieTrailer(movie.trailerSrc);
@@ -17,15 +29,11 @@ export default function InCinemas({moviesData,setMovieSrc, setMovieTrailer
         history.push('/MoviesSolution')
     }
 
-    // if(movieTrailer) return <Redirect to='/MoviesSolution'/>
-
-    let filteredMovies = moviesData.filter((movie) => {
+    let filteredMovies = productsData.filter((movie) => {
         return (
           movie.name.toLowerCase().includes(searchInput.toLowerCase())
         );
       });
-    
-    //   filteredMovies = searchInput ? filteredMovies : filteredMovies.slice(5, 10);
 
     return(
         <div>
@@ -37,7 +45,7 @@ export default function InCinemas({moviesData,setMovieSrc, setMovieTrailer
                 if(movie.categories === 'InCinemas'){
                     return (
                         <section key={i} className={Styles.cardCointeiner} >
-                            <img className={Styles.movieCard} onClick={()=>{handleMovieClick(movie.src)}} src={movie.img}/>
+                            <img className={Styles.movieCard} onClick={()=>{handleMovieClick(movie)}} src={movie.img}/>
                             <h3 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>{movie.name}</h3>
                             <h4 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>Movie Length: {movie.time}</h4>
                             {auth?<button onClick={()=>{addMovies(i);console.log(movie.added)}}>add movie</button>:''}
@@ -47,7 +55,7 @@ export default function InCinemas({moviesData,setMovieSrc, setMovieTrailer
                 }
                 })}
                 </div>
-                <CreateMovie/>
+                <CreateMovie getProducts={getProducts} defaultCategory='InCinemas' added={false}/>
             <button onClick={()=>setGoBack(true)}>Go Back</button>
         </div>
         );

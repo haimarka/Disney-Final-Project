@@ -55,11 +55,6 @@ app.patch('/movies/:id',(req,res)=>{
 });
 
 
-app.get('*',(req,res)=>{ 
-    res.send('ERROR, page not found');
-});
-
-
 // contact us 
 app.get('/contact-us',(req,res)=>{ 
     messagesFunctions.getMessages(req,res);
@@ -73,6 +68,10 @@ app.delete('/contact-us/:id',(req,res)=>{
     messagesFunctions.deleteMessages(req,res);
 });
 
+
+app.get('*',(req,res)=>{ 
+    res.send('ERROR, page not found');
+});
 
 app.listen(PORT ,()=>{
     console.log(`listening on port ${PORT}`);

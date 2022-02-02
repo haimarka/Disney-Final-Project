@@ -1,16 +1,27 @@
-import {useState} from 'react';
+import axios from 'axios';
+import {useState, useEffect} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
 import CreateMovie from '../../components/CreateMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 
-export default function MoreMovies({moviesData,setMovieSrc, setMovieTrailer
-    ,colorReversal ,fontIncrease, addMovies, auth}) {
+export default function MoreMovies({setMovieSrc, setMovieTrailer
+    ,colorReversal ,fontIncrease, addMovies, auth, productsData, setProductsData}) {
     const [goBack, setGoBack] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory();
-
+    useEffect(()=>getProducts(),[])
     if(goBack) { return <Redirect to='/AllMovies'/>}
+
+
+    const getProducts = ()=>{
+      axios
+      .get('http://localhost:8082/Movies')
+      .then(res=>{
+        setProductsData(res.data);
+      })
+      .catch(err=>console.log(err.response))
+    }
 
     const handleMovieClick = (movie)=>{
         setMovieTrailer(movie.trailerSrc);
@@ -18,7 +29,7 @@ export default function MoreMovies({moviesData,setMovieSrc, setMovieTrailer
         history.push('/MoviesSolution')
       }
 
-    let filteredMovies = moviesData.filter((movie) => {
+    let filteredMovies = productsData.filter((movie) => {
         return (
           movie.name.toLowerCase().includes(searchInput.toLowerCase())
         );
@@ -43,7 +54,7 @@ export default function MoreMovies({moviesData,setMovieSrc, setMovieTrailer
                         )
                 }
                 })}</div>
-                <CreateMovie/>
+                <CreateMovie getProducts={getProducts} defaultCategory="MoreMovies"/>
             <button onClick={()=>setGoBack(true)}>Go Back</button>
         </div>
         );

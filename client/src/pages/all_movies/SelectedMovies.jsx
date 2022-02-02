@@ -1,28 +1,40 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
 import CreateMovie from '../../components/CreateMovie';
-
+import axios from 'axios';
 import Styles from '../../CSS/Styles.module.css'
 
-export default function SelectedMovies({moviesData, setMovieTrailer,
-    setMovieSrc, colorReversal ,fontIncrease,addMovies, auth}) {
+
+export default function SelectedMovies({ setMovieTrailer,
+    setMovieSrc, colorReversal ,fontIncrease,addMovies, auth, productsData, setProductsData}) {
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
+  useEffect(()=>getProducts(),[])
   if(goBack) { return <Redirect to='/AllMovies'/>}
-    
+
+
+  const getProducts = ()=>{
+    axios
+    .get('http://localhost:8082/Movies')
+    .then(res=>{
+      setProductsData(res.data);
+    })
+    .catch(err=>console.log(err.response))
+  }
+
 const handleMovieClick = (movie)=>{
   setMovieTrailer(movie.trailerSrc);
   setMovieSrc(movie.movieSrc);
   history.push('/MoviesSolution')
 }
+console.log(productsData);
 
-  let filteredMovies = moviesData.filter((movie) => {
+  let filteredMovies = productsData.filter((movie) => {
     return (
       movie.name.toLowerCase().includes(searchInput.toLowerCase())
     );
   });
-  // filteredMovies = searchInput ? filteredMovies : filteredMovies.slice(0, 5); 
   return(
     <div>
         <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>Selected Movies</h1>
@@ -42,7 +54,7 @@ const handleMovieClick = (movie)=>{
                   )
           }
                 })}</div>
-                <CreateMovie/>
+                <CreateMovie getProducts={getProducts} defaultCategory='SelectedMovies' added={false} />
          <button onClick={()=>setGoBack(true)}>Go Back</button>
       
        </div>
