@@ -1,8 +1,8 @@
 
-export default function Cart({data, subtractProducts, cartTotalPrice, cartTotalQuantity}) {
 
-   
-    const elements = data.map((product,i)=>{
+export default function Cart({productsData, subtractProducts, cartTotalPrice, cartTotalQuantity}) {
+    const elements = productsData.map((product,i)=>{
+
     if(product.added){
     return (<tr key={i}>
                 <td>{product.name}</td>

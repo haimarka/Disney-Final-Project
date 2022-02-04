@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import axios from 'axios'
 
-export default function CreateMovie({getProducts,defaultCategory, added}) {
+export default function CreateNewMovie({defaultCategory, added, moviesData, setMoviesData}) {
     const [id, setId] = useState('')
     const [name, setName] = useState('')
     const [imageUrl, setImageUrl] = useState('')
@@ -9,17 +9,17 @@ export default function CreateMovie({getProducts,defaultCategory, added}) {
     const [time, setTime] = useState('')
     const [message, setMessage] = useState('')
     const [movieSrc, setMovieSrc] = useState('')
-    // const [categories, setCategories] = useState(defaultCategory)
     const [showForm, setShowForm] = useState(false)
 
-    const postProducts = ()=>{
+    const postNewMovie = ()=>{
+      let temp = [...moviesData];
+      const newMovie = { id, name, img:imageUrl, trailerSrc:trailerSrc, time, message:'', movieSrc:movieSrc, categories:defaultCategory, added:added};
+      temp.push(newMovie);
         axios
-        .post('http://localhost:8082/Movies',{
-          id, name, imageUrl, trailerSrc, time, message, movieSrc, categories:defaultCategory, added:added
-        })
+        .post('http://localhost:8082/Movies',newMovie)
         .then(res=>{
           console.log(res);
-          getProducts()
+          setMoviesData(temp)
         })
         .catch(err=>console.log(err.response))
       }
@@ -30,13 +30,13 @@ export default function CreateMovie({getProducts,defaultCategory, added}) {
         {showForm?<form onSubmit={(e)=>{
             e.preventDefault();
             console.log(id, name, imageUrl, trailerSrc, time, message, movieSrc);
-            postProducts();}}>
-            <input onChange={(e)=>setId(e.target.value)} type="text" placeholder='enter id' /><br />
+            postNewMovie();}}>
+            <input onChange={(e)=>setId(e.target.value)} type="number" placeholder='enter id' /><br />
             <input onChange={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
             <input onChange={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
             <input onChange={(e)=>setTrailerSrc(e.target.value)} type="text" placeholder='enter trailer source' /><br />
-            <input onChange={(e)=>setTime(e.target.value)} type="text" placeholder='enter time' /><br />
-            <input onChange={(e)=>setMessage(e.target.value)} type="text" placeholder='enter message' /><br />
+            <input onChange={(e)=>setTime(e.target.value)} type="number" placeholder='enter time' /><br />
+            <input onChange={(e)=>setMessage(e.target.value)} disabled={true} type="text" placeholder='enter message' /><br />
             <input onChange={(e)=>setMovieSrc(e.target.value)} type="text" placeholder='enter movie source' /><br />
             <input disabled={true} defaultValue={added} type="text" placeholder='enter false' /><br />
             <input disabled={true} defaultValue={defaultCategory} type="text" /><br />

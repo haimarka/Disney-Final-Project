@@ -12,7 +12,7 @@ const collectionName = "Movies";
             dbo.collection(collectionName).find({}).toArray()
             .then(movies=>{
                 res.send(movies).status(200);
-                console.log(movies);
+                // console.log(movies);
             })
         })
         .catch(err=>{
@@ -96,5 +96,7 @@ const collectionName = "Movies";
                 throw err.response
             })
     }
+
+    // pull push
 
     module.exports = {getMovies, createMovies, deleteMovie, updateSingleMovie, getSingleMovie}

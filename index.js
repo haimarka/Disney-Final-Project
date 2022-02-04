@@ -10,8 +10,9 @@ app.use(bodyParser.json());
 const productsFunctions = require('./functions/ProductsFunctions');
 const messagesFunctions = require('./functions/ContactUsFunctions');
 const MoviesFunctions = require('./functions/MoviesFunctions');
+const usersFunctions = require('./functions/usersFunctions');
 
-// products
+// Products
 app.get('/products',(req,res)=>{ 
     productsFunctions.getProducts(req,res);
 });
@@ -55,7 +56,7 @@ app.patch('/movies/:id',(req,res)=>{
 });
 
 
-// contact us 
+// Contact us 
 app.get('/contact-us',(req,res)=>{ 
     messagesFunctions.getMessages(req,res);
 });
@@ -67,6 +68,25 @@ app.post("/contact-us",(req,res)=>{
 app.delete('/contact-us/:id',(req,res)=>{
     messagesFunctions.deleteMessages(req,res);
 });
+
+
+// Users
+app.get("/users",(req,res)=>{
+    usersFunctions.getUsers(req,res);
+});
+
+app.post("/users",(req,res)=>{
+    usersFunctions.createUser(req,res);
+});
+
+app.delete('/users/:id',(req,res)=>{
+    usersFunctions.deleteUser(req,res);
+});
+
+app.patch('/users/:id',(req,res)=>{
+    usersFunctions.updateSingleUser(req,res);
+});
+
 
 
 app.get('*',(req,res)=>{ 

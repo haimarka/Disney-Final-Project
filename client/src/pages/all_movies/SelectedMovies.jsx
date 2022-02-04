@@ -1,36 +1,23 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
-import CreateMovie from '../../components/CreateMovie';
-import axios from 'axios';
+import CreateNewMovie from '../../components/CreateNewMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 
 export default function SelectedMovies({ setMovieTrailer,
-    setMovieSrc, colorReversal ,fontIncrease,addMovies, auth, productsData, setProductsData}) {
+    setMovieSrc, colorReversal ,fontIncrease,addMovies, auth, moviesData, setMoviesData}) {
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
-  useEffect(()=>getProducts(),[])
   if(goBack) { return <Redirect to='/AllMovies'/>}
 
-
-  const getProducts = ()=>{
-    axios
-    .get('http://localhost:8082/Movies')
-    .then(res=>{
-      setProductsData(res.data);
-    })
-    .catch(err=>console.log(err.response))
+  const handleMovieClick = (movie)=>{
+    setMovieTrailer(movie.trailerSrc);
+    setMovieSrc(movie.movieSrc);
+    history.push('/MoviesSolution')
   }
 
-const handleMovieClick = (movie)=>{
-  setMovieTrailer(movie.trailerSrc);
-  setMovieSrc(movie.movieSrc);
-  history.push('/MoviesSolution')
-}
-console.log(productsData);
-
-  let filteredMovies = productsData.filter((movie) => {
+  let filteredMovies = moviesData.filter((movie) => {
     return (
       movie.name.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -48,13 +35,13 @@ console.log(productsData);
                       <img className={Styles.movieCard} onClick={()=>{handleMovieClick(movie)}} src={movie.img}/>
                       <h3 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>{movie.name}</h3>
                       <h4 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>Movie Length: {movie.time}</h4>
-                      {auth?<button onClick={()=>{addMovies(i);console.log(movie.added)}}>add movie</button>:''}
+                      {auth?<button onClick={()=>{addMovies(i,movie)}}>add movie</button>:''}
                       <p>{movie.message}</p>
                   </section>
                   )
           }
                 })}</div>
-                <CreateMovie getProducts={getProducts} defaultCategory='SelectedMovies' added={false} />
+                <CreateNewMovie moviesData={moviesData} setMoviesData={setMoviesData} defaultCategory='SelectedMovies' added={false} />
          <button onClick={()=>setGoBack(true)}>Go Back</button>
       
        </div>

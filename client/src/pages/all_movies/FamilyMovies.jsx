@@ -1,26 +1,15 @@
-import axios from 'axios';
-import {useState, useEffect} from 'react';
+
+import {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom';
-import CreateMovie from '../../components/CreateMovie';
+import CreateNewMovie from '../../components/CreateNewMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal 
-  ,fontIncrease, addMovies, auth, productsData, setProductsData}) {
+  ,fontIncrease, addMovies, auth, moviesData, setMoviesData}) {
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();
-  useEffect(()=>getProducts(),[])
   if(goBack) {return <Redirect to='/AllMovies'/>}
-
-
-  const getProducts = ()=>{
-    axios 
-    .get('http://localhost:8082/Movies')
-    .then(res=>{
-      setProductsData(res.data);
-    })
-    .catch(err=>console.log(err.response))
-  }
 
   const handleMovieClick = (movie)=>{
     setMovieTrailer(movie.trailerSrc);
@@ -28,12 +17,11 @@ export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal
     history.push('/MoviesSolution')
   }
 
-    let filteredMovies = productsData.filter((movie) => {
-      return (
-        movie.name.toLowerCase().includes(searchInput.toLowerCase())
-      );
-    });
-
+  let filteredMovies = moviesData.filter((movie) => {
+    return (
+      movie.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  });
 
     return (
       <div>
@@ -54,7 +42,7 @@ export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal
                     )
                 }
                 })}</div>
-                <CreateMovie getProducts={getProducts} defaultCategory='FamilyMovies'/>
+                <CreateNewMovie moviesData={moviesData} setMoviesData={setMoviesData} defaultCategory='FamilyMovies'/>
       <button onClick={()=>setGoBack(true)}>Go Back</button>
     </div>
   );

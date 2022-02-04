@@ -1,34 +1,22 @@
-import axios from 'axios';
-import {useState, useEffect} from 'react';
-import {Redirect,useHistory} from 'react-router-dom';
-import CreateMovie from '../../components/CreateMovie';
+import {useState} from 'react';
+import {Redirect, useHistory} from 'react-router-dom';
+import CreateNewMovie from '../../components/CreateNewMovie';
 import Styles from '../../CSS/Styles.module.css'
 
 export default function WatchAtHome({setMovieSrc, setMovieTrailer
-    ,colorReversal ,fontIncrease, addMovies, auth, productsData, setProductsData}) {
+    ,colorReversal ,fontIncrease, addMovies, auth, moviesData, setMoviesData}) {
     const [goBack, setGoBack] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory();
-    useEffect(()=>getProducts(),[])
     if(goBack) { return <Redirect to='/AllMovies'/>}
-    
-
-    const getProducts = ()=>{
-      axios 
-      .get('http://localhost:8082/Movies')
-      .then(res=>{
-        setProductsData(res.data);
-      })
-      .catch(err=>console.log(err.response))
-    }
 
     const handleMovieClick = (movie)=>{
-        setMovieTrailer(movie.trailerSrc);
-        setMovieSrc(movie.movieSrc);
-        history.push('/MoviesSolution')
-      }
+      setMovieTrailer(movie.trailerSrc);
+      setMovieSrc(movie.movieSrc);
+      history.push('/MoviesSolution')
+    }
 
-    let filteredMovies = productsData.filter((movie) => {
+    let filteredMovies = moviesData.filter((movie) => {
         return (
           movie.name.toLowerCase().includes(searchInput.toLowerCase())
         );
@@ -53,7 +41,7 @@ export default function WatchAtHome({setMovieSrc, setMovieTrailer
                         )
                 }
                 })}</div>
-                <CreateMovie getProducts={getProducts} defaultCategory='WatchAtHome'/>
+                <CreateNewMovie moviesData={moviesData} setMoviesData={setMoviesData} defaultCategory='WatchAtHome'/>
             <button onClick={()=>setGoBack(true)}>Go Back</button>
         </div>
         );

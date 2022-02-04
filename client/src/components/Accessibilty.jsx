@@ -26,8 +26,8 @@ export default function Accessibilty({setAccessibilyList,accessibilyList,setHigh
               }}
               src={
                 colorReversal
-                  ? "https://cdn-icons.flaticon.com/png/512/3417/premium/3417815.png?token=exp=1643751513~hmac=6935c4a80c9045fa62c38ee1d9a7fe70"
-                  : "https://cdn-icons.flaticon.com/png/512/3417/premium/3417806.png?token=exp=1643751513~hmac=e863b2a2f7e401385e82ec2457cb0629"
+                  ? "https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/344/external-colors-photography-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png"
+                  : "https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/344/external-colors-photography-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
               }
               alt="font increse"
             />

@@ -3,7 +3,7 @@ const MongoClient = MongoDB.MongoClient;
 const ObjectId = MongoDB.ObjectId;
 const MongoUrl = "mongodb://localhost:27017/";
 const dbName = "Disney";
-const collectionName = "ContectUs";
+const collectionName = "ContectUs"; 
 
     const getMessages = (req, res)=>{
         MongoClient.connect(MongoUrl)
@@ -49,7 +49,7 @@ function deleteMessages(req,res){
     .catch(err=>{
         throw err.response
     })
-}
+} 
 
 
     module.exports = {getMessages, createMessages, deleteMessages}

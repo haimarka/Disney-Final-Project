@@ -16,7 +16,6 @@ export default function ContactUs() {
       axios
       .get('http://localhost:8082/contact-us')
       .then(res=>{
-        console.log(res.data);
         setMessagesData(res.data);
       })
       .catch(err=>console.log(err.response))
@@ -34,6 +33,8 @@ export default function ContactUs() {
       })
       .catch(err=>console.log(err.response))
     }
+
+
   return (
     <div>
       <h1>Contact Us</h1>

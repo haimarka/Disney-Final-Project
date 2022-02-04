@@ -1,10 +1,9 @@
-import React from 'react';
+import React,{} from 'react';
 import { useHistory } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
 import Styles from "../CSS/Styles.module.css";
 
 export default function WatchList({fontIncrease, colorReversal
-  , setMovieSrc, setMovieTrailer, removeMovies, productsData}) {
+  , setMovieSrc, setMovieTrailer, removeMovies, moviesData, watchList}) {
   const history = useHistory();
 
   const handleMovieClick = (movie)=>{
@@ -13,7 +12,7 @@ export default function WatchList({fontIncrease, colorReversal
     history.push('/MoviesSolution');
   }
 
-const elements = productsData.map((movie,i)=>{
+const elements = moviesData.map((movie,i)=>{
     if(movie.added){
     return (
         <section key={i} className={Styles.cardCointeiner} >

@@ -1,18 +1,19 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useFetch from "./Hooks/useFetch";
-import useFetchMovies from "./Hooks/useFetchMovies";
+// import useFetch from "./Hooks/useFetch";
+// import useFetchMovies from "./Hooks/useFetchMovies";
 import {Navigation,Accessibilty} from './components'
 import {ContactUs,About,Store,Cart, WatchList,Home,Register,LogIn,ChangePassword,AllMovies, MoviesSolution, ErrorPage } from './pages';
 import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
+import axios from 'axios';
 import "./App.css";
 import Styles from "./CSS/Styles.module.css";
 
 
 function App() {
   const [auth, setAuth] = useState(null);
-  const [data, setData] = useFetch("./data.json");
-  const [moviesData] = useFetchMovies("./moviesData.json");
+  // const [data, setData] = useFetch("./data.json");
+  // const [moviesData] = useFetchMovies("./moviesData.json");
   const [colorReversal, setColorReversal] = useState(false); 
   const [fontIncrease, setFontIncrease] = useState(false);
   const [highlighting, setHighlighting] = useState(false);
@@ -22,55 +23,86 @@ function App() {
   const [watchList, setWatchList] = useState(null);
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
+  const [moviesData, setMoviesData] = useState([])
   const [productsData, setProductsData] = useState([])
+  const [usersData, setUsersData] = useState([])
+  const [productId, setProductId] = useState('')
+// console.log(usersData);
   const AUTH_LOCAL_STORAGE = "Users";
 
   useEffect(() => {
+    getUsers();
+    getMovies();
+    getProducts();
     let authStorage = JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE));
     return authStorage ? setAuth(authStorage.data) : null;
   }, []);
 
-  const logOutHeandler = () => {
-    localStorage.setItem(AUTH_LOCAL_STORAGE, JSON.stringify(""));
-    setAuth(null);
-    document.location.href = "/";
-  };
+const logOutHeandler = () => {
+  localStorage.setItem(AUTH_LOCAL_STORAGE, JSON.stringify(""));
+  setAuth(null);
+  document.location.href = "/";
+};
 
-  const addMovies = (i)=>{
-    let temp = [...productsData];
-    temp[i].added = true;
-    temp[i].message = 'Movie Added';
-    setWatchList(temp);
-  }
+const getUsers = ()=>{
+  axios 
+  .get('http://localhost:8082/users')
+  .then(res=>{
+      setUsersData(res.data);
+  })
+  .catch(err=>console.log(err.response))
+}
 
-  const removeMovies = (i)=>{
-    let temp = [...productsData];
-    temp[i].added = false;
-    setWatchList(temp);
-  }
+const getMovies = ()=>{
+  axios 
+  .get('http://localhost:8082/Movies')
+  .then(res=>{
+    setMoviesData(res.data);
+  })
+  .catch(err=>console.log(err.response))
+}
 
-  const calculatePrice = (updateData)=>{
-    let price = 0; let quantity = 0;
-    updateData.forEach(element => {
-        price += element.price * element.quantity
-        quantity += element.quantity
-    });
-    setcartTotalPrice(price);
-    setcartTotalQuantity(quantity);
-    setData(updateData);
+const addMovies = (i,movie)=>{
+  let temp = [...moviesData];
+  temp[i].added = true;
+  temp[i].message = 'Movie Added';
+  setMoviesData(temp);
+  // let usersTemp = [...usersData];
+  // console.log(usersTemp[i]);
+  // usersTemp[i].cart.push(1);
+  // setUsersData(usersTemp);
+}
+
+const removeMovies = (i)=>{
+  let temp = [...moviesData];
+  temp[i].added = false;
+  temp[i].message = '';
+  setMoviesData(temp);
+}
+
+const getProducts = ()=>{
+  axios
+  .get('http://localhost:8082/products')
+  .then(res=>{
+    setProductsData(res.data);
+  })
+  .catch(err=>console.log(err))
 }
 
 const addProducts = (i)=>{
-    let temp = [...data];
+   if(auth){
+    let temp = [...productsData];
     temp[i].added = true;
     temp[i].quantity ++;
     temp[i].message = 'Thanks For Buying';
+    // setProductId(productsData[i]._id)
+    // console.log(productId);
     calculatePrice(temp)
-    
+   }
 }
 
 const subtractProducts = (i)=>{
-    let temp = [...data];
+    let temp = [...productsData];
     temp[i].quantity --;
     temp[i].added = temp[i].quantity > 0;
     if(temp[i].quantity <= 0) temp[i].quantity = 0;
@@ -78,6 +110,16 @@ const subtractProducts = (i)=>{
     calculatePrice(temp);
 }
 
+const calculatePrice = (updateData)=>{
+    let price = 0; let quantity = 0;
+    updateData.forEach(element => {
+        price += element.price * element.quantity
+        quantity += element.quantity
+    });
+    setcartTotalPrice(price);
+    setcartTotalQuantity(quantity);
+    setProductsData(updateData);
+}
 
 return (
 <BrowserRouter >
@@ -132,6 +174,9 @@ return (
               <AllMovies
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
+                usersData={usersData}
+                auth={auth}
+                setUsersData={setUsersData}
               />
             )}
           />
@@ -143,8 +188,8 @@ return (
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth} 
-                productsData={productsData}
-                setProductsData={setProductsData}
+                moviesData={moviesData} 
+                setMoviesData={setMoviesData}
               />
             )}
           />
@@ -156,8 +201,8 @@ return (
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
-                productsData={productsData}
-                setProductsData={setProductsData}
+                moviesData={moviesData}
+                setMoviesData={setMoviesData}
               />
             )}
           />
@@ -169,8 +214,8 @@ return (
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
-                productsData={productsData}
-                setProductsData={setProductsData}
+                moviesData={moviesData}
+                setMoviesData={setMoviesData}
               />
             )}
           />
@@ -182,8 +227,8 @@ return (
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
-                productsData={productsData}
-                setProductsData={setProductsData}
+                moviesData={moviesData}
+                setMoviesData={setMoviesData}
               />
             )}
           />
@@ -195,27 +240,41 @@ return (
                 fontIncrease={fontIncrease}
                 addMovies={addMovies}
                 auth={auth}
-                productsData={productsData}
-                setProductsData={setProductsData}
+                moviesData={moviesData}
+                setMoviesData={setMoviesData}
               />
             )}
           />
+            <Route exact path="/WatchList" render={() => ( <WatchList
+              setWatchList={setWatchList}
+              watchList={watchList}
+              fontIncrease={fontIncrease}
+              colorReversal={colorReversal}
+              setMovieTrailer={setMovieTrailer}
+              setMovieSrc={setMovieSrc} 
+              removeMovies={removeMovies}
+              moviesData={moviesData} 
+            />)}/>
+
           <Route exact path="/ContactUs" render={() => <ContactUs />} />
-          <Route exact path="/About" render={() => (
-              <About
+          <Route exact path="/About" render={() => (<About 
                 colorReversal={colorReversal}
                 fontIncrease={fontIncrease}
-              />
-            )}
-          />
+                />)}/>
           <Route exact path="/Store" render={() => (
               <Store
-              addProducts={addProducts}
-              subtractProducts={subtractProducts}
+                addProducts={addProducts}
+                subtractProducts={subtractProducts}
                 fontIncrease={fontIncrease}
                 colorReversal={colorReversal}
                 cartTotalPrice={cartTotalPrice}
-                cartTotalQuantity={cartTotalQuantity}
+                cartTotalQuantity={cartTotalQuantity} 
+                productsData={productsData} 
+                setProductsData={setProductsData}
+                usersData={usersData}
+                productId={productId}
+                getProducts={getProducts}
+                setProductsData={setProductsData}
               />
             )}
           />
@@ -224,7 +283,7 @@ return (
               subtractProducts={subtractProducts}
                 cartTotalPrice={cartTotalPrice}
                 cartTotalQuantity={cartTotalQuantity}
-                data={data}
+                productsData={productsData}
               />
             )}
           />
@@ -238,16 +297,6 @@ return (
               />
             )}
           />
-          <Route exact path="/WatchList" render={() => ( <WatchList
-            setWatchList={setWatchList}
-            fontIncrease={fontIncrease}
-            colorReversal={colorReversal}
-            setMovieTrailer={setMovieTrailer}
-            setMovieSrc={setMovieSrc} 
-            removeMovies={removeMovies}
-            productsData={productsData} 
-            />)}/>
-            
             <Route exact path="*" render={() => ( <ErrorPage/>)}/>
 
         </Switch>{" "}
