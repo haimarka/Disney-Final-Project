@@ -45,7 +45,7 @@ const collectionName = "Movies";
             dbo = db.db(dbName);
             dbo.collection(collectionName).insertOne(createMovie).then((newMovie) => {
                 res.send(newMovie).status(201);
-                console.log(newMovie);
+                // console.log(newMovie);
             })
         })
             .catch((err) => {
@@ -84,7 +84,7 @@ const collectionName = "Movies";
             dbo.collection(collectionName).updateOne(ID, { $set: update }).then((updateMovie) => {
                 if (updateMovie.matchedCount == 1) {
                     res.send(updateMovie).status(200)
-                    console.log(updateMovie);
+                    // console.log(updateMovie);
                 }
                 else {
                     res.sendStatus(404)

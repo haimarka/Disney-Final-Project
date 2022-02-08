@@ -26,14 +26,13 @@ function App() {
   const [moviesData, setMoviesData] = useState([])
   const [productsData, setProductsData] = useState([])
   const [usersData, setUsersData] = useState([])
-  const [productId, setProductId] = useState('')
-// console.log(usersData);
   const AUTH_LOCAL_STORAGE = "Users";
 
   useEffect(() => {
     getUsers();
     getMovies();
     getProducts();
+    getCart();
     let authStorage = JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE));
     return authStorage ? setAuth(authStorage.data) : null;
   }, []);
@@ -44,11 +43,26 @@ const logOutHeandler = () => {
   document.location.href = "/";
 };
 
-const getUsers = ()=>{
+const getUsers = () => {
   axios 
   .get('http://localhost:8082/users')
   .then(res=>{
       setUsersData(res.data);
+  })
+  .catch(err=>console.log(err.response))
+}
+
+const getCart = () => {
+  axios 
+  .get('http://localhost:8082/users/cart')
+  .then(res=>{
+      setUsersData(res.data);
+      // res.data.forEach(element => {
+      //   console.log(element);
+      //   setUsersData(element);
+      // });
+      // console.log(usersData);
+      // console.log(usersData[0].cart);
   })
   .catch(err=>console.log(err.response))
 }
@@ -85,19 +99,28 @@ const getProducts = ()=>{
   .get('http://localhost:8082/products')
   .then(res=>{
     setProductsData(res.data);
+    // console.log(res.data);
   })
   .catch(err=>console.log(err))
 }
 
-const addProducts = (i)=>{
+const addProducts = (i,product)=>{
    if(auth){
     let temp = [...productsData];
+    // let usersTemp = [...usersData];
+    // for (let i = 0; i < usersTemp.length; i++) {
+    //   if(auth.email == usersTemp[i].email) {
+    //     console.log(i);
+    //     usersTemp[i].cart.push(product);
+    //     break;
+    //   }
+    // }
+    // setUsersData(usersTemp);
+    // console.log(usersTemp);
     temp[i].added = true;
     temp[i].quantity ++;
-    temp[i].message = 'Thanks For Buying';
-    // setProductId(productsData[i]._id)
-    // console.log(productId);
-    calculatePrice(temp)
+    temp[i].message = 'added to your cart';
+    calculatePrice(temp);
    }
 }
 
@@ -159,11 +182,14 @@ return (
              <Register
               auth={auth}
                setAuth={setAuth}
+               usersData={usersData}
+               setUsersData={setUsersData} 
                 />}/>
           <Route exact path="/LogIn" render={() => 
           <LogIn 
           auth={auth}
            setAuth={setAuth}
+          getUsers={getUsers}
             />}
           />
           <Route exact path="/ChangePassword" render={() => 
@@ -272,9 +298,11 @@ return (
                 productsData={productsData} 
                 setProductsData={setProductsData}
                 usersData={usersData}
-                productId={productId}
+                setUsersData={setUsersData}
                 getProducts={getProducts}
                 setProductsData={setProductsData}
+                auth={auth}
+                // updateProdact={updateProdact}
               />
             )}
           />
@@ -284,6 +312,8 @@ return (
                 cartTotalPrice={cartTotalPrice}
                 cartTotalQuantity={cartTotalQuantity}
                 productsData={productsData}
+                usersData={usersData}
+                setUsersData={setUsersData}
               />
             )}
           />

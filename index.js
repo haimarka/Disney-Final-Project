@@ -2,7 +2,7 @@ const cors = require('cors'); // know how exept every url you send
 const bodyParser = require('body-parser'); // parsing json body to object
 const express = require("express");
 const app = express();
-const PORT = 8082;
+const PORT = 8082; 
 
 app.use(cors({origin: '*'}));
 app.use(bodyParser.json());
@@ -20,20 +20,19 @@ app.get('/products',(req,res)=>{
 app.get("/products/:id",(req,res)=>{
     productsFunctions.getSingleProduct(req,res)
 });
-  
+
 app.post("/products",(req,res)=>{
     productsFunctions.createProdacts(req,res);
-});
+}); 
 
 app.delete('/products/:id',(req,res)=>{
-    productsFunctions.deleteProduct(req,res);
+    productsFunctions.deleteProduct(req,res); 
 });
 
 app.patch('/products/:id',(req,res)=>{
     productsFunctions.updateSingleProduct(req,res);
 });
-
-
+ 
 // Movies 
 app.get('/movies',(req,res)=>{ 
     MoviesFunctions.getMovies(req,res);
@@ -81,11 +80,51 @@ app.post("/users",(req,res)=>{
 
 app.delete('/users/:id',(req,res)=>{
     usersFunctions.deleteUser(req,res);
-});
+}); 
 
 app.patch('/users/:id',(req,res)=>{
     usersFunctions.updateSingleUser(req,res);
 });
+
+app.get("/users/cart",(req,res)=>{
+    usersFunctions.getUserCart(req,res);
+});
+
+app.get("/users/cart/:id",(req,res)=>{
+    usersFunctions.getSingleUser(req,res);
+});
+
+app.patch("/users/cart/patch/push/:id",(req,res)=>{
+    usersFunctions.addProductToCart(req,res);
+});
+
+app.patch("/users/cart/patch/pull/:id",(req,res)=>{
+    usersFunctions.removeProductFromCart(req,res);
+});
+
+app.delete('/users/cart/delete/:id',(req,res)=>{
+    usersFunctions.deleteProductFromCart(req,res);
+});
+
+
+
+//Cart
+// app.get('/cart',(req,res)=>{
+//     res.send('working'); console.log('working');
+// })
+
+// app.post('/cart',(req,res)=>{
+//     res.send('working'); console.log('working');
+// })
+
+// app.delete('/cart/:id',(req,res)=>{
+//     res.send('working'); console.log('working');
+// });
+
+// app.patch('/cart/:id',(req,res)=>{
+//     res.send('working'); console.log('working');
+// });
+
 
 
 

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Styles from '../CSS/Styles.module.css'
 
 
-export default function LogIn({auth, setAuth}) {
+export default function LogIn({auth, setAuth,getUsers}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const API_KEY = 'AIzaSyDrW5Bi1EI5iKKZCNYj17T2Lxqw0KsCaiM';
@@ -16,6 +16,7 @@ export default function LogIn({auth, setAuth}) {
         return <Redirect to='/'/>
     }
 
+
     const logInUser = ()=>{
         axios
         .post(URL,{
@@ -25,8 +26,7 @@ export default function LogIn({auth, setAuth}) {
         .then((res)=>{
             console.log(res);
             localStorage.setItem(AUTH_LOCAL_STORAGE,JSON.stringify(res));
-            setAuth(res.data)
-            
+            setAuth(res.data);
         })
         .catch((err)=>{
             console.log(err);
@@ -40,7 +40,7 @@ export default function LogIn({auth, setAuth}) {
                 <section className={Styles.logInConteiner}>
                     <form onSubmit={(e)=>{
                             e.preventDefault();
-                            logInUser()
+                            logInUser();
                             }}>
                         <input onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder='enter email' /> <br /> 
                         <input onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder='enter password' /> <br />

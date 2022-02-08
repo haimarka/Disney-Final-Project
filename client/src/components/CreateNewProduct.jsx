@@ -3,22 +3,26 @@ import axios from 'axios';
 import Styles from '../CSS/Styles.module.css'
 
 export default function CreateNewProduct({
-    getProducts, colorReversal, productsData,
+     colorReversal, productsData,
      fontIncrease, subtractProducts, addProducts,
-     cartTotalQuantity, cartTotalPrice, usersData,productId, setProductsData}) {
+     cartTotalQuantity, cartTotalPrice, usersData,
+     setUsersData, setProductsData, auth}) {
          
-    const [id, setId] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
-    const [quantity, setQuantity] = useState('')
-    const [message, setMessage] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const [Disable,setDisable] = useState(false);
     const [showForm, setShowForm] = useState(false)
+    const [id, setId] = useState('')
 
+    const isValid = ()=>{
+      return (name.length && price.length
+          && imageUrl.length )
+  }
       const postProducts = ()=>{
         let temp = [...productsData];
-        const newProduct = {id, name, price, quantity, message, img: imageUrl, added:false};
-        temp.push(newProduct);
+        const newProduct = { name, price, img: imageUrl, added:false};
+        temp.push(newProduct); 
         axios
         .post('http://localhost:8082/products',newProduct)
         .then(res=>{
@@ -27,21 +31,41 @@ export default function CreateNewProduct({
       })        
         .catch(err=>console.log(err.response))
       }
-
-
-      const updateProdact = (updateProduct)=>{
+      
+      const updateProdact = (id)=>{
         let temp = [...productsData];
-        updateProduct = {id, name, price, quantity, message, img: imageUrl, added:false}
+        const updateProduct = { name, price, img: imageUrl, added:false}
+        temp.push(updateProduct);
+
         axios
-        .patch(`http://localhost:8082/products/${productId}`,updateProduct)
+        .patch(`http://localhost:8082/products/${id}`,updateProduct)
         .then(res=>{
           console.log(res);
-          console.log(productId);
-          setProductsData(temp)
+          setProductsData(temp);
+        })
+        .catch(err=>{
+          console.log(err.response);
+        })
+      }
+
+      const addProductToCart = (product) => {
+        let tempCart = [...usersData];
+        const addedProduct = product;
+        for (let i = 0; i < usersData.length; i++) {
+          if(auth.email == tempCart[i].email) {
+            tempCart[i].cart.push(product);
+            break;
+          }
+        }
+        axios 
+        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,addedProduct)
+        .then(res=>{
+            // console.log(res);
+            setUsersData(tempCart);
+            // console.log(tempCart);
         })
         .catch(err=>console.log(err.response))
       }
-
 
       const elements = productsData.map((product,i)=>{
         return (
@@ -50,30 +74,33 @@ export default function CreateNewProduct({
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.name}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.price}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.quantity}</p>
-                    <img onClick={()=>{subtractProducts(i)}} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/512/1665/premium/1665663.png?token=exp=1642760171~hmac=d6ea68a3295a3284bd9109cfd455121f'/>
-                    <img onClick={()=>addProducts(i)} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/128/1665/premium/1665629.png?token=exp=1642759890~hmac=433986537e14b06ba269d7c34a59ab12'/>
+                    <img onClick={()=>{subtractProducts(i)}} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/>
+                    <img onClick={()=>{addProducts(i,product);addProductToCart(product)}} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/512/1008/premium/1008978.png?token=exp=1644335628~hmac=e0e6ddd7be4532076af0125b94e393d1'/>
                     <p>{product.message}</p>
 
-                    {showForm?<form onSubmit={(e)=>{
+                    {showForm?
+                    <form onSubmit={(e)=>{
                     e.preventDefault();
-                    console.log(name, price, quantity, message, imageUrl);
-                      updateProdact(product);
+                    if(isValid){
+                      console.log(product._id);
+                      updateProdact(product._id);
+                    }
                     }}>
-                    <input onBlur={(e)=>setId(e.target.value)} defaultValue={product._id} type="number" placeholder='enter id' /><br />
-                    <input onBlur={(e)=>setName(e.target.value)} defaultValue={product.name} type="text" placeholder='enter name' /><br />
-                    <input onBlur={(e)=>setPrice(e.target.value)} defaultValue={product.price} type="number" placeholder='enter price' /><br />
-                    <input onBlur={(e)=>setQuantity(e.target.value)} defaultValue={product.quantity} type="number" placeholder='enter quantity' /><br />
-                    <input onBlur={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
-                    <input onBlur={(e)=>setMessage(e.target.value)} defaultValue={product.message} type="text" placeholder='enter message' /><br />
+                    <input onChange={(e)=>{setName(e.target.value);setDisable(isValid())}} defaultValue={product.name} type="text" placeholder='enter name' /><br />
+                    <input onChange={(e)=>{setPrice(e.target.value);setDisable(isValid())}} defaultValue={product.price} type="number" placeholder='enter price' /><br />
+                    <input onChange={(e)=>{setImageUrl(e.target.value);setDisable(isValid())}} defaultValue={product.img} type='text' placeholder='enter image URL' /><br />
                     <input disabled={true} defaultValue={false}/><br />
-                    <input type="submit" value="update" /><br /><br />
+                    <input disabled={isValid()?!Disable:Disable} type="submit" value="update" /><br /><br />
                     <button onClick={()=>setShowForm(false)}>hide form</button>
-                    </form>:<button onClick={()=>setShowForm(true)}>edit</button>}
+                    </form>:
+                    <button onClick={()=>{
+                      setShowForm(true);
+                      setId(product._id);
+                      }}>edit</button>}
                 </div>)
             })
   return (
     <div>
-        <h1>Create New Product</h1>
         <h1 style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>Store</h1>
         <section className={Styles.displayProducts}>
            {elements}
@@ -82,23 +109,21 @@ export default function CreateNewProduct({
         </section>
         <h2>add product</h2>
 
-        {showForm?<form onSubmit={(e)=>{
-          e.preventDefault();
-          console.log(name, price, quantity, message, imageUrl);
-          postProducts();
-
-        }}>
-            <input onBlur={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
-            <input onBlur={(e)=>setPrice(e.target.value)} type="number" placeholder='enter price' /><br />
-            <input onBlur={(e)=>setQuantity(e.target.value)} type="number" placeholder='enter quantity' /><br />
-            <input onBlur={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
-            <input onBlur={(e)=>setMessage(e.target.value)} type="text" placeholder='enter message' /><br />
-            <input disabled={true} defaultValue={false}/><br />
-            <input type="submit" value="create" /><br /><br />
-            <button onClick={()=>setShowForm(false)}>hide form</button>
-        </form>:<button onClick={()=>setShowForm(true)}>add product</button>}
-
-        
+        <h1>Create New Product</h1>
+        {showForm?
+          <form onSubmit={(e)=>{
+            e.preventDefault();
+            // console.log(name, price, quantity, message, imageUrl);
+            postProducts();
+          }}>
+              <input onBlur={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
+              <input onBlur={(e)=>setPrice(e.target.value)} type="number" placeholder='enter price' /><br />
+              <input onBlur={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
+              <input disabled={true} defaultValue={false}/><br />
+              <input type="submit" value="create" /><br /><br />
+              <button onClick={()=>setShowForm(false)}>hide form</button>
+          </form>:
+        <button onClick={()=>setShowForm(true)}>add product</button>}
     </div>
   );
 }

@@ -12,7 +12,7 @@ const collectionName = "ContectUs";
             dbo.collection(collectionName).find({}).toArray()
             .then(messages=>{
                 res.send(messages).status(200);
-                console.log(messages);
+                // console.log(messages);
             })
         })
         .catch(err=>{

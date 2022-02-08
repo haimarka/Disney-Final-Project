@@ -12,7 +12,7 @@ const collectionName = "Products";
             dbo.collection(collectionName).find({}).toArray()
             .then(products=>{
                 res.send(products).status(200);
-                console.log(products);
+                // console.log(products);
             })
         })
         .catch(err=>{
@@ -45,7 +45,7 @@ const collectionName = "Products";
             dbo = db.db(dbName)
             dbo.collection(collectionName).insertOne(createDoc).then((doc) => {
                 res.send(doc).status(201);
-                console.log(doc);
+                // console.log(doc);
             })
         })
             .catch((err) => {
@@ -69,16 +69,15 @@ const collectionName = "Products";
     }
 
     function updateSingleProduct(req, res) {
+        console.log(req.params.id,req.body);
         MongoClient.connect(MongoUrl).then((db) => {
             const ID = {_id:ObjectId(req.params.id)};
             const update = req.body;
-            if (update.name == undefined || update.name.length == 0) {
-                return res.sendStatus(400)
-            }
             dbo = db.db(dbName)
-            dbo.collection(collectionName).updateOne(ID, { $set: update }).then((updateMovie) => {
+            dbo.collection(collectionName).updateOne(ID, { $set: update })
+            .then((updateMovie) => {
+                res.send(updateMovie).status(200)
                 if (updateMovie.matchedCount == 1) {
-                    res.send(updateMovie).status(200)
                     console.log(updateMovie);
                 }
                 else {
@@ -91,6 +90,29 @@ const collectionName = "Products";
                 throw err.response
             })
     }
+
+    // function addProductToCart(req, res) {
+    //     console.log(req.params.id,req.body);
+    //     MongoClient.connect(MongoUrl).then((db) => {
+    //         const ID = {_id:ObjectId(req.params.id)};
+    //         const update = req.body;
+    //         dbo = db.db(dbName)
+    //         dbo.collection("Users").updateOne(ID, { $push: update })
+    //         .then((updateMovie) => {
+    //             res.send(updateMovie).status(200)
+    //             if (updateMovie.matchedCount == 1) {
+    //                 console.log(updateMovie);
+    //             }
+    //             else {
+    //                 res.sendStatus(404)
+    //             }
+    //         })
+    //     })
+    //         .catch((err) => {
+    //             console.log('there is a mistake');
+    //             throw err.response
+    //         })
+    // }
 
 
     module.exports = {getProducts, createProdacts, deleteProduct, getSingleProduct, updateSingleProduct}

@@ -2,7 +2,7 @@ import CreateNewProduct from '../components/CreateNewProduct';
 
 export default function Store({cartTotalPrice, cartTotalQuantity, colorReversal,
   fontIncrease, addProducts, subtractProducts, productsData, setProductsData,
-  usersData,productId, getProducts}) {
+  usersData, getProducts, updateProdact, setUsersData, auth}) {
   return (
     <div>
         <CreateNewProduct 
@@ -15,8 +15,10 @@ export default function Store({cartTotalPrice, cartTotalQuantity, colorReversal,
                productsData={productsData} 
                setProductsData={setProductsData}
                usersData={usersData}
-               productId={productId}
+               setUsersData={setUsersData}
                getProducts={getProducts}
+               updateProdact={updateProdact}
+               auth={auth}
                />
     </div>
   );

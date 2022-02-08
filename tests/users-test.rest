@@ -18,12 +18,43 @@ DELETE http://localhost:8082/users/61fbe52dc123c92475c6bca5
 
 ###
 
-PATCH http://localhost:8082/users/61fbe529c123c92475c6bca4
+PATCH http://localhost:8082/users/6200f4b9a55cc66314c74a1f
 Content-Type: application/json
 
 {
-   
-    "cart":{"product":""}
+   {"product":""}
 }
 
+###
+###
+###
+
+GET http://localhost:8082/users/cart
+
+
+###
+
+GET http://localhost:8082/users/cart/62022164022e7904e89fda6c
+
+###
+
+PATCH http://localhost:8082/users/cart/patch/push/62022164022e7904e89fda6c
+Content-Type: application/json
+
+ {
+    "id": "87",
+    "name": "big dog",
+    "price": "187",
+    "quantity": "1",
+    "message": "good dog",
+    "img": "https://i.pinimg.com/564x/a2/63/8a/a2638a9de0c207a6f7a90cabd8a5a594.jpg",
+    "added": false
+}
+
+###
+
+PATCH http://localhost:8082/users/cart/patch/pull/62022164022e7904e89fda6c
+
+###
+DELETE http://localhost:8082/users/cart/delete/6202c3734b99f72103547700
 ###
