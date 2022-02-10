@@ -34,7 +34,7 @@ export default function Cart({
       .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,removedProduct)
       .then(res=>{
           console.log(res);
-          setUsersData(tempCart);
+          setUsersData({...usersData,cart:tempCart});
           console.log(tempCart);
       })
       .catch(err=>console.log(err.response))

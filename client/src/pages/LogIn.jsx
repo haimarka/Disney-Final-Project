@@ -17,7 +17,7 @@ export default function LogIn({auth, setAuth,getUsers}) {
     }
 
 
-    function logInUser  (){
+    function logInUser (){
         axios
         .post(URL,{
             email,

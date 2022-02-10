@@ -34,7 +34,7 @@ const logOutHeandler = () => {
   document.location.href = "/";
 };
 
-const keepUserLogedIn = ()=>{
+const getUserFromStorage = ()=>{
   let authStorage = JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE));
   return authStorage ? setAuth(authStorage.data) : null;
 }  
@@ -135,15 +135,16 @@ const calculatePrice = (updateData)=>{
 
  
 useEffect(() => {
-  // keepUserLogedIn(); 
-  // getMovies();   
-  // getProducts(); 
-  getUsers();
+  getUserFromStorage();
+  getMovies();
+  getProducts();
 }, []); 
-useEffect(() => {keepUserLogedIn();}, []);
-useEffect(() => {getMovies();}, []);
-useEffect(() => {getProducts();}, []);
 
+useEffect(()=>{
+  if(auth){
+    getUsers();
+  }
+},[auth])
 
 return (
 <BrowserRouter >

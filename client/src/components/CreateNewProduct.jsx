@@ -49,14 +49,10 @@ export default function CreateNewProduct({
       }
 
       const addProductToCart = (product) => { 
-        // debugger
-        let tempCart = [...usersData.cart];
-        const addedProduct = product;
-        // tempCart.cart.push(addedProduct);
         axios 
-        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,addedProduct)
+        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,product)
         .then(res=>{
-            setUsersData(tempCart);
+            setUsersData( {...usersData,cart:[...usersData.cart,product]});
         })
         .catch(err=>console.log(err.response))
       }
