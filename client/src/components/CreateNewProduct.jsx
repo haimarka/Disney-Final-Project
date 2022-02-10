@@ -7,7 +7,7 @@ export default function CreateNewProduct({
      fontIncrease, subtractProducts, addProducts,
      cartTotalQuantity, cartTotalPrice, usersData,
      setUsersData, setProductsData, auth}) {
-         
+          
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [imageUrl, setImageUrl] = useState('')
@@ -31,7 +31,7 @@ export default function CreateNewProduct({
       })        
         .catch(err=>console.log(err.response))
       }
-      
+       
       const updateProdact = (id)=>{
         let temp = [...productsData];
         const updateProduct = { name, price, img: imageUrl, added:false}
@@ -48,24 +48,33 @@ export default function CreateNewProduct({
         })
       }
 
-      const addProductToCart = (product) => {
-        let tempCart = [...usersData];
+      const addProductToCart = (product) => { 
+        // debugger
+        let tempCart = [...usersData.cart];
         const addedProduct = product;
-        for (let i = 0; i < usersData.length; i++) {
-          if(auth.email == tempCart[i].email) {
-            tempCart[i].cart.push(product);
-            break;
-          }
-        }
+        // tempCart.cart.push(addedProduct);
         axios 
         .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,addedProduct)
         .then(res=>{
-            // console.log(res);
             setUsersData(tempCart);
-            // console.log(tempCart);
         })
         .catch(err=>console.log(err.response))
       }
+
+      // const removeProductFromCart = (product) => { 
+      //   console.log('works');
+      //   // console.log(usersData.cart);
+      //   let tempCart = [...usersData.cart];
+      //   const removedProduct = product;
+      //   axios 
+      //   .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,removedProduct)
+      //   .then(res=>{
+      //       console.log(res);
+      //       setUsersData(tempCart);
+      //   })
+      //   .catch(err=>console.log(err.response))
+      // }
+      // console.log(usersData);
 
       const elements = productsData.map((product,i)=>{
         return (
@@ -74,8 +83,14 @@ export default function CreateNewProduct({
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.name}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.price}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.quantity}</p>
-                    <img onClick={()=>{subtractProducts(i)}} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/>
-                    <img onClick={()=>{addProducts(i,product);addProductToCart(product)}} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/512/1008/premium/1008978.png?token=exp=1644335628~hmac=e0e6ddd7be4532076af0125b94e393d1'/>
+                    <img onClick={()=>{
+                      subtractProducts(i);
+                      // removeProductFromCart(product);
+                      }} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/>
+                    <img onClick={()=>{
+                      addProducts(i,product);
+                      addProductToCart(product);
+                      }} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/512/1008/premium/1008978.png?token=exp=1644335628~hmac=e0e6ddd7be4532076af0125b94e393d1'/>
                     <p>{product.message}</p>
 
                     {showForm?

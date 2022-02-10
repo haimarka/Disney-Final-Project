@@ -34,11 +34,11 @@ GET http://localhost:8082/users/cart
 
 ###
 
-GET http://localhost:8082/users/cart/62022164022e7904e89fda6c
+GET http://localhost:8082/users/cart/6203c530703bc5085dbb6b88
 
 ###
 
-PATCH http://localhost:8082/users/cart/patch/push/62022164022e7904e89fda6c
+PATCH http://localhost:8082/users/cart/patch/push/6203c530703bc5085dbb6b88
 Content-Type: application/json
 
  {
@@ -54,6 +54,8 @@ Content-Type: application/json
 ###
 
 PATCH http://localhost:8082/users/cart/patch/pull/62022164022e7904e89fda6c
+Content-Type: application/json
+
 
 ###
 DELETE http://localhost:8082/users/cart/delete/6202c3734b99f72103547700

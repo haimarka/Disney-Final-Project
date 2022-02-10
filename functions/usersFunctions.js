@@ -128,28 +128,29 @@ const collectionName = "Users";
         })
     }
 
-      function addProductToCart(req, res) {
-          console.log(req.params.id);
-        MongoClient.connect(MongoUrl).then((db) => {
-            const ID = {email:req.params.id};
-            const update = req.body;
-            dbo = db.db(dbName)
-            dbo.collection(collectionName).findOneAndUpdate(ID, { $push: {cart:update} })
-            .then((addProduct) => {
-                res.send(addProduct).status(200);
-                console.log(addProduct);
-            })
-        })
-            .catch((err) => {
-                console.log('not working');
-                throw err.response
-            })
-    }
+    function addProductToCart(req, res) {
+      MongoClient.connect(MongoUrl).then((db) => {
+          const ID = {email:req.params.id};
+          const update = req.body;
+          console.log(ID,update);
+          dbo = db.db(dbName)
+          dbo.collection(collectionName).findOneAndUpdate(ID, { $push: {cart: update} })
+          .then((addProduct) => {
+              res.send(addProduct).status(200);
+              console.log(addProduct);
+          })
+      })
+          .catch((err) => {
+              console.log('not working');
+              throw err.response
+          })
+  }
 
     function removeProductFromCart(req, res) {
         MongoClient.connect(MongoUrl).then((db) => {
-            const ID = {_id:ObjectId(req.params)};
+            const ID = {email:req.params.id};
             const update = req.body;
+            console.log(ID,update);
             dbo = db.db(dbName)
             dbo.collection(collectionName).findOneAndUpdate(ID, { $pull: {cart:update} })
             .then((removeProduct) => {

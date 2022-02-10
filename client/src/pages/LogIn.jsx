@@ -17,7 +17,7 @@ export default function LogIn({auth, setAuth,getUsers}) {
     }
 
 
-    const logInUser = ()=>{
+    function logInUser  (){
         axios
         .post(URL,{
             email,
@@ -32,6 +32,9 @@ export default function LogIn({auth, setAuth,getUsers}) {
             console.log(err);
         })
     }
+
+  
+    
     
   return (
         <div>

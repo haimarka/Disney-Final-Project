@@ -9,12 +9,12 @@ import axios from 'axios';
 import "./App.css";
 import Styles from "./CSS/Styles.module.css";
 
-
-function App() {
-  const [auth, setAuth] = useState(null);
+  
+function App() {  
+  const [auth, setAuth] = useState(null);   
   // const [data, setData] = useFetch("./data.json");
   // const [moviesData] = useFetchMovies("./moviesData.json");
-  const [colorReversal, setColorReversal] = useState(false); 
+  const [colorReversal, setColorReversal] = useState(false);
   const [fontIncrease, setFontIncrease] = useState(false);
   const [highlighting, setHighlighting] = useState(false);
   const [accessibilyList, setAccessibilyList] = useState("block");
@@ -24,47 +24,36 @@ function App() {
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
   const [moviesData, setMoviesData] = useState([])
-  const [productsData, setProductsData] = useState([])
+  const [productsData, setProductsData] = useState([])  
   const [usersData, setUsersData] = useState([])
-  const AUTH_LOCAL_STORAGE = "Users";
-
-  useEffect(() => {
-    getUsers();
-    getMovies();
-    getProducts();
-    getCart();
-    let authStorage = JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE));
-    return authStorage ? setAuth(authStorage.data) : null;
-  }, []);
-
+  const AUTH_LOCAL_STORAGE = "Users"; 
+  
 const logOutHeandler = () => {
   localStorage.setItem(AUTH_LOCAL_STORAGE, JSON.stringify(""));
   setAuth(null);
   document.location.href = "/";
 };
 
+const keepUserLogedIn = ()=>{
+  let authStorage = JSON.parse(localStorage.getItem(AUTH_LOCAL_STORAGE));
+  return authStorage ? setAuth(authStorage.data) : null;
+}  
+  
 const getUsers = () => {
-  axios 
+  axios
   .get('http://localhost:8082/users')
   .then(res=>{
-      setUsersData(res.data);
+    console.log(auth);
+    console.log(res.data); 
+    for (let i = 0; i < res.data.length; i++) {
+      if(auth.email == res.data[i].email) {
+        console.log( res.data[i]);
+        return setUsersData(res.data[i]); 
+      }
+    }   
   })
   .catch(err=>console.log(err.response))
-}
-
-const getCart = () => {
-  axios 
-  .get('http://localhost:8082/users/cart')
-  .then(res=>{
-      setUsersData(res.data);
-      // res.data.forEach(element => {
-      //   console.log(element);
-      //   setUsersData(element);
-      // });
-      // console.log(usersData);
-      // console.log(usersData[0].cart);
-  })
-  .catch(err=>console.log(err.response))
+  
 }
 
 const getMovies = ()=>{
@@ -74,7 +63,7 @@ const getMovies = ()=>{
     setMoviesData(res.data);
   })
   .catch(err=>console.log(err.response))
-}
+}  
 
 const addMovies = (i,movie)=>{
   let temp = [...moviesData];
@@ -103,7 +92,7 @@ const getProducts = ()=>{
   })
   .catch(err=>console.log(err))
 }
-
+ 
 const addProducts = (i,product)=>{
    if(auth){
     let temp = [...productsData];
@@ -143,6 +132,18 @@ const calculatePrice = (updateData)=>{
     setcartTotalQuantity(quantity);
     setProductsData(updateData);
 }
+
+ 
+useEffect(() => {
+  // keepUserLogedIn(); 
+  // getMovies();   
+  // getProducts(); 
+  getUsers();
+}, []); 
+useEffect(() => {keepUserLogedIn();}, []);
+useEffect(() => {getMovies();}, []);
+useEffect(() => {getProducts();}, []);
+
 
 return (
 <BrowserRouter >
@@ -189,7 +190,7 @@ return (
           <LogIn 
           auth={auth}
            setAuth={setAuth}
-          getUsers={getUsers}
+          setUsersData={setUsersData}
             />}
           />
           <Route exact path="/ChangePassword" render={() => 
@@ -314,6 +315,7 @@ return (
                 productsData={productsData}
                 usersData={usersData}
                 setUsersData={setUsersData}
+                auth={auth}
               />
             )}
           />
