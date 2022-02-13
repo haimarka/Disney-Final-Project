@@ -1,4 +1,8 @@
-
+/* body{
+    background-image: url('https://lumiere-a.akamaihd.net/v1/images/eu_encanto_hero_v2_m_7b8a6146.jpeg?region=0,0,750,564&width=600');
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
 .linksContainer{
     background-color: rgb(1, 35, 131);
     display: flex;
@@ -217,18 +221,33 @@
     transform: scale(1.105);
   }
 
-.contactUsImage{
-    margin-left: -22%;
-    width: 150px;
-}
 
 .contactUsContainer{
-    margin-top: -15%;
-    margin-left: 42%; 
+    background-image: url('https://www.wallpaperup.com/uploads/wallpapers/2017/07/09/1094123/d013aa85facfc7d311f8d24b629dba54-700.jpg');
+    background-size: cover;
+    height: 80vh;
+
+}
+
+/* .contactUsImage{
+    margin-left: -22%;
+    width: 150px;
+} */
+
+.contactUsTitle{
+    position: absolute;
+    margin-left: 23%;
+    margin-top: 8%;
+}
+
+.contactUsFormContainer{
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 20%; 
     padding: 1%;
     width: 15%;
     height: 25%;
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
 }
 
 .signOutBtn {
@@ -267,6 +286,10 @@
   
   .signOutBtn:active {
     transform: scale(1.105);
+  }
+  .allMoviesContainer{
+    background-image: url('https://wallpaperaccess.com/full/763899.jpg');
+    height: 100vh;
   }
 
   .allMoviesContainer a{
@@ -338,6 +361,64 @@ th{
     transition: 1s;
 
 }
+
+.aboutFather{
+    padding: 10%;
+    text-align: center;
+    background-image: url('https://img.wallpapersafari.com/desktop/1440/900/45/54/vksuA9.jpg');
+    background-repeat: no-repeat;
+    height: 80vh;
+}
+
+.aboutConteiner{
+    width: 50%;
+    transition: 2s;
+}
+
+.aboutConteiner:hover{
+    background-image: url('https://www.teahub.io/photos/full/191-1912427_disney-theme-background.jpg');
+    background-size: cover;
+    transition: 2s;
+}
+
+.aboutParagraph{
+    font-style: italic;
+    width: 100%;
+    height: 50%;
+    transition: 1s;
+}
+
+.aboutParagraph:hover{
+    border-radius: 10%;
+    background-color: rgba(173, 216, 230, 0.514);
+    transform: scale(105%);
+    transition: 1s;
+}
+
+.aboutList{
+    font-style: italic;
+    transition: 1s;
+
+}
+
+.aboutList:hover{
+    transform: scale(105%);
+}
+
+.storeContainer{
+    background-image: url('https://wallpaperaccess.com/full/763899.jpg');
+}
+
+.homeConteiner{
+    background-image: url('https://m.media-amazon.com/images/I/61CDI-yprvL.jpg');
+    /* height: 100vh;  */
+}
+
+.cartConteiner{
+    background-image: url('https://wallpaperaccess.com/full/763899.jpg');
+    height: 100vh;
+}
+
 
 
 

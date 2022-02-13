@@ -23,7 +23,7 @@ export default function Home({auth, fontIncrease, colorReversal}) {
       clearMassageHandler()
   let styleMessage = {display: message?'block':'none'}  
   return (
-    <div>
+    <div className={Styles.homeConteiner}>
         <h3 style={{fontSize: fontIncrease? '300%':'200%',color: colorReversal ? "white" : "black",transition:'1s'}}>home page</h3>
 
         {auth?<h1 className={Styles.homeMessage} style={styleMessage}>welcome {auth.email}</h1>:message?<h1 className={Styles.homeMessage} style={{marginLeft:'35%'}}>Disney Movies</h1>:""}

@@ -86,14 +86,8 @@ app.patch('/users/:id',(req,res)=>{
     usersFunctions.updateSingleUser(req,res);
 });
 
-app.get("/users/cart",(req,res)=>{
-    usersFunctions.getUserCart(req,res);
-});
 
-app.get("/users/cart/:id",(req,res)=>{
-    usersFunctions.getSingleUser(req,res);
-});
-
+//users Cart
 app.patch("/users/cart/patch/push/:id",(req,res)=>{
     usersFunctions.addProductToCart(req,res);
 });
@@ -107,23 +101,27 @@ app.delete('/users/cart/delete/:id',(req,res)=>{
 });
 
 
+//users WatchList
+app.get("/users/watchList",(req,res)=>{
+    usersFunctions.getUserCart(req,res);
+});
 
-//Cart
-// app.get('/cart',(req,res)=>{
-//     res.send('working'); console.log('working');
-// })
+app.get("/users/watchList/:id",(req,res)=>{
+    usersFunctions.getSingleUser(req,res);
+});
 
-// app.post('/cart',(req,res)=>{
-//     res.send('working'); console.log('working');
-// })
+app.patch("/users/watchList/patch/push/:id",(req,res)=>{
+    usersFunctions.addMovieToCart(req,res);
+});
 
-// app.delete('/cart/:id',(req,res)=>{
-//     res.send('working'); console.log('working');
-// });
+app.patch("/users/watchList/patch/pull/:id",(req,res)=>{
+    usersFunctions.removeMovieFromCart(req,res);
+});
 
-// app.patch('/cart/:id',(req,res)=>{
-//     res.send('working'); console.log('working');
-// });
+app.delete('/users/watchList/delete/:id',(req,res)=>{
+    usersFunctions.deleteProductFromCart(req,res);
+});
+
 
 
 

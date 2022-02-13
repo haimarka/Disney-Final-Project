@@ -9,7 +9,6 @@ import axios from 'axios';
 import "./App.css";
 import Styles from "./CSS/Styles.module.css";
 
-  
 function App() {  
   const [auth, setAuth] = useState(null);   
   // const [data, setData] = useFetch("./data.json");
@@ -21,6 +20,7 @@ function App() {
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [movieSrc, setMovieSrc] = useState(null);
   const [watchList, setWatchList] = useState(null);
+  const [movieSummary, setMovieSummary] = useState(null);
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
   const [moviesData, setMoviesData] = useState([])
@@ -43,11 +43,11 @@ const getUsers = () => {
   axios
   .get('http://localhost:8082/users')
   .then(res=>{
-    console.log(auth);
-    console.log(res.data); 
+    // console.log(auth);
+    // console.log(res.data); 
     for (let i = 0; i < res.data.length; i++) {
       if(auth.email == res.data[i].email) {
-        console.log( res.data[i]);
+        // console.log( res.data[i]);
         return setUsersData(res.data[i]); 
       }
     }   
@@ -65,15 +65,11 @@ const getMovies = ()=>{
   .catch(err=>console.log(err.response))
 }  
 
-const addMovies = (i,movie)=>{
+const addMovies = (i)=>{
   let temp = [...moviesData];
   temp[i].added = true;
   temp[i].message = 'Movie Added';
   setMoviesData(temp);
-  // let usersTemp = [...usersData];
-  // console.log(usersTemp[i]);
-  // usersTemp[i].cart.push(1);
-  // setUsersData(usersTemp);
 }
 
 const removeMovies = (i)=>{
@@ -88,29 +84,18 @@ const getProducts = ()=>{
   .get('http://localhost:8082/products')
   .then(res=>{
     setProductsData(res.data);
-    // console.log(res.data);
   })
   .catch(err=>console.log(err))
 }
- 
-const addProducts = (i,product)=>{
-   if(auth){
-    let temp = [...productsData];
-    // let usersTemp = [...usersData];
-    // for (let i = 0; i < usersTemp.length; i++) {
-    //   if(auth.email == usersTemp[i].email) {
-    //     console.log(i);
-    //     usersTemp[i].cart.push(product);
-    //     break;
-    //   }
-    // }
-    // setUsersData(usersTemp);
-    // console.log(usersTemp);
-    temp[i].added = true;
-    temp[i].quantity ++;
-    temp[i].message = 'added to your cart';
-    calculatePrice(temp);
-   }
+
+const addProductsToStore = (i)=>{
+  if(auth){
+  let temp = [...productsData];
+  temp[i].added = true;
+  temp[i].quantity++;
+  temp[i].message = 'added to your cart';
+  calculatePrice(temp);
+  }
 }
 
 const subtractProducts = (i)=>{
@@ -125,15 +110,14 @@ const subtractProducts = (i)=>{
 const calculatePrice = (updateData)=>{
     let price = 0; let quantity = 0;
     updateData.forEach(element => {
-        price += element.price * element.quantity
-        quantity += element.quantity
+        price += Number(element.price) * Number(element.quantity);
+        quantity += Number(element.quantity);
     });
     setcartTotalPrice(price);
     setcartTotalQuantity(quantity);
     setProductsData(updateData);
 }
 
- 
 useEffect(() => {
   getUserFromStorage();
   getMovies();
@@ -144,7 +128,8 @@ useEffect(()=>{
   if(auth){
     getUsers();
   }
-},[auth])
+},[auth]);
+// console.log({...usersData,cart:['im HERE']});
 
 return (
 <BrowserRouter >
@@ -218,6 +203,9 @@ return (
                 auth={auth} 
                 moviesData={moviesData} 
                 setMoviesData={setMoviesData}
+                usersData={usersData}
+               setUsersData={setUsersData}  
+               setMovieSummary={setMovieSummary}
               />
             )}
           />
@@ -231,6 +219,10 @@ return (
                 auth={auth}
                 moviesData={moviesData}
                 setMoviesData={setMoviesData}
+                usersData={usersData} 
+               setUsersData={setUsersData}
+               setMovieSummary={setMovieSummary}
+
               />
             )}
           />
@@ -244,6 +236,10 @@ return (
                 auth={auth}
                 moviesData={moviesData}
                 setMoviesData={setMoviesData}
+                usersData={usersData}
+               setUsersData={setUsersData}
+               setMovieSummary={setMovieSummary}
+
               />
             )}
           />
@@ -257,6 +253,8 @@ return (
                 auth={auth}
                 moviesData={moviesData}
                 setMoviesData={setMoviesData}
+                usersData={usersData}
+               setUsersData={setUsersData}
               />
             )}
           />
@@ -270,6 +268,10 @@ return (
                 auth={auth}
                 moviesData={moviesData}
                 setMoviesData={setMoviesData}
+                usersData={usersData}
+               setUsersData={setUsersData}
+               setMovieSummary={setMovieSummary}
+
               />
             )}
           />
@@ -282,6 +284,11 @@ return (
               setMovieSrc={setMovieSrc} 
               removeMovies={removeMovies}
               moviesData={moviesData} 
+              auth={auth} 
+              usersData={usersData}
+              setUsersData={setUsersData}
+               setMovieSummary={setMovieSummary}
+
             />)}/>
 
           <Route exact path="/ContactUs" render={() => <ContactUs />} />
@@ -291,7 +298,6 @@ return (
                 />)}/>
           <Route exact path="/Store" render={() => (
               <Store
-                addProducts={addProducts}
                 subtractProducts={subtractProducts}
                 fontIncrease={fontIncrease}
                 colorReversal={colorReversal}
@@ -303,8 +309,10 @@ return (
                 setUsersData={setUsersData}
                 getProducts={getProducts}
                 setProductsData={setProductsData}
+                calculatePrice={calculatePrice}
+                addProductsToStore={addProductsToStore}
                 auth={auth}
-                // updateProdact={updateProdact}
+               
               />
             )}
           />
@@ -327,6 +335,9 @@ return (
                 movieTrailer={movieTrailer}
                 movieSrc={movieSrc}
                 setMovieSrc={setMovieSrc}
+               movieSummary={movieSummary}
+               setMovieSummary={setMovieSummary}
+
               />
             )}
           />

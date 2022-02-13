@@ -8,6 +8,7 @@ export default function ContactUs() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [messagesData, setMessagesData] = useState(null);
+    const [submitImage, setSubmitImage] = useState(false);
     useEffect(()=>{
       getMessages()
     },[]);
@@ -36,11 +37,11 @@ export default function ContactUs() {
 
 
   return (
-    <div>
-      <h1>Contact Us</h1>
-      <img className={Styles.contactUsImage} src="https://www.disneyclips.com/images/images/pluto-christmas4.png" alt="plooto hold latter" />
-       <section className={Styles.contactUsContainer}>
-          <h4>Leave your name and email and we will contact with you soon</h4>
+    <div className={Styles.contactUsContainer}>
+      <h1 className={Styles.contactUsTitle}>Contact Us</h1>
+      {/* <img className={Styles.contactUsImage} src="https://www.disneyclips.com/images/images/pluto-christmas4.png" alt="plooto hold latter" /> */}
+       <section className={Styles.contactUsFormContainer}>
+          <h4>Leave your personal details and we will contact you soon</h4>
             <form onSubmit={(e)=>{
                 e.preventDefault();
                 console.log(name,email, message);
@@ -62,6 +63,7 @@ export default function ContactUs() {
                       </div>
                   )
                 })}
+                {/* <img style={{borderRadius:'40%'}} src="https://media3.giphy.com/media/IG6i30q4DMT0Q/giphy.gif?cid=ecf05e4701s0ap7kq1cbgou6p8hhfnlwrwrnotl4a6ayo95i&rid=giphy.gif&ct=g" alt="" /> */}
           </div>
     </div>
   );

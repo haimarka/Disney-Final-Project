@@ -146,6 +146,7 @@ const collectionName = "Users";
           })
   }
 
+
     function removeProductFromCart(req, res) {
         MongoClient.connect(MongoUrl).then((db) => {
             const ID = {email:req.params.id};
@@ -163,9 +164,44 @@ const collectionName = "Users";
             })
     }
 
+    function addMovieToCart(req, res) {
+        MongoClient.connect(MongoUrl).then((db) => {
+            const ID = {email:req.params.id};
+            const update = req.body;
+            console.log(ID,update);
+            dbo = db.db(dbName)
+            dbo.collection(collectionName).findOneAndUpdate(ID, { $push: {watchList: update} })
+            .then((addMovie) => {
+                res.send(addMovie).status(200);
+                console.log(addMovie);
+            })
+        })
+            .catch((err) => {
+                console.log('not working');
+                throw err.response
+            })
+    }
+
+    function removeMovieFromCart(req, res) {
+        MongoClient.connect(MongoUrl).then((db) => {
+            const ID = {email:req.params.id};
+            const update = req.body;
+            console.log(ID,update);
+            dbo = db.db(dbName)
+            dbo.collection(collectionName).findOneAndUpdate(ID, { $pull: {watchList:update} })
+            .then((removeMovie) => {
+                res.send(removeMovie).status(200);
+            })
+        })
+            .catch((err) => {
+                console.log('not working');
+                throw err.response
+            })
+    }
+
     
 
 
     module.exports = {getUsers, createUser, deleteUser, updateSingleUser,
          getUserCart, addProductToCart, deleteProductFromCart,
-         getSingleUser, removeProductFromCart}
+         getSingleUser, removeProductFromCart, addMovieToCart, removeMovieFromCart}
