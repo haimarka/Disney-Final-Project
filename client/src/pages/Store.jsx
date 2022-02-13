@@ -70,7 +70,6 @@ export default function Store({
       // }
 
       const removeProductFromCart = (i,product) => {
-        //  {...usersData,cart:[...usersData.cart,product]}
         let tempCart = [...usersData.cart];
         tempCart.splice(i,1);
         axios 
@@ -78,11 +77,9 @@ export default function Store({
         .then(res=>{
             console.log(res);
             setUsersData({...usersData,cart:tempCart});
-            console.log(tempCart);
         })
         .catch(err=>console.log(err.response))
       }
-      console.log(usersData);
 
       const elements = productsData.map((product,i)=>{
         return (
@@ -93,7 +90,6 @@ export default function Store({
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.quantity}</p>
                     <img onClick={()=>{
                       subtractProducts(i);
-                      // removeProductFromCart(product,i);
                       removeProductFromCart(product,i);
                       }} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/>
                     <img onClick={()=>{

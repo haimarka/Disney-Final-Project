@@ -13,10 +13,9 @@ export default function About({fontIncrease, colorReversal}) {
                   better people and more Optimistic.
                 </p>
                 <ol className={Styles.aboutList}>
-                  <h5>with the expiriens of ower site the users get some bonuses :</h5>
-                  <li> have the higher view quality (HD).</li>
-                  <li> have the higher view quality (HD).</li>
-                  <li> have the higher view quality (HD).</li>
+                  <h4>with the expiriens of ower site the users get some bonuses :</h4>
+                  <li> movies with the higher view quality (HD).</li>
+                  <li> Personal assistance regarding problems on the site.</li>
                 </ol>
         </div>
     </div>

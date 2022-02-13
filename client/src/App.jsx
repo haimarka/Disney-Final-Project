@@ -129,7 +129,6 @@ useEffect(()=>{
     getUsers();
   }
 },[auth]);
-// console.log({...usersData,cart:['im HERE']});
 
 return (
 <BrowserRouter >

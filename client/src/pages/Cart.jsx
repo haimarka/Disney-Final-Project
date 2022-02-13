@@ -7,9 +7,8 @@ export default function Cart({
   productsData, subtractProducts, cartTotalPrice,
    cartTotalQuantity,usersData, setUsersData,
     auth}) {
-
+      
     const removeProductFromCart = (i,product) => {
-      //  {...usersData,cart:[...usersData.cart,product]}
       let tempCart = [...usersData.cart];
       tempCart.splice(i,1);
       axios 
@@ -17,11 +16,10 @@ export default function Cart({
       .then(res=>{
           console.log(res);
           setUsersData({...usersData,cart:tempCart});
-          console.log(tempCart);
       })
       .catch(err=>console.log(err.response))
     }
- 
+    
     const elements = usersData.cart.map((product,i)=>{
     if(product.added){
     return (<tr key={i}>

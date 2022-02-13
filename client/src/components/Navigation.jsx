@@ -41,7 +41,7 @@ export default function Navigation({highlighting ,colorReversal, auth}) {
           >
             Store
           </Link>{" "}
-          <Link
+         {auth?<Link
             className={Styles.links}
             style={{
               color: colorReversal ? "white" : "black",
@@ -51,7 +51,7 @@ export default function Navigation({highlighting ,colorReversal, auth}) {
             to="/Cart"
           >
             Cart
-          </Link>{" "}
+          </Link>:''}{" "}
           <Link
             className={Styles.links}
             style={{

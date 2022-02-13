@@ -376,7 +376,6 @@ th{
 }
 
 .aboutConteiner:hover{
-    background-image: url('https://www.teahub.io/photos/full/191-1912427_disney-theme-background.jpg');
     background-size: cover;
     transition: 2s;
 }
@@ -389,8 +388,6 @@ th{
 }
 
 .aboutParagraph:hover{
-    border-radius: 10%;
-    background-color: rgba(173, 216, 230, 0.514);
     transform: scale(105%);
     transition: 1s;
 }
