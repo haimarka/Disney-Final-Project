@@ -3,16 +3,13 @@ import { Redirect, useHistory } from 'react-router-dom';
 import {VideoFrame} from '../components';
 
  const MoviesSolution = ({ movieTrailer, setMovieTrailer, auth,
-   name, movieSrc, setMovieSrc, movieSummary,
-    setMovieSummary}) => {
+   name, movieSrc, setMovieSrc, movieSummary,setMovieSummary}) => {
   const history = useHistory();  
   if(!auth){
      return <Redirect to='/LogIn'/>
     }
 
-      const videoSrc = movieTrailer;
-// 'https://www.renderhub.com/squir/disney-cinderella-castle/disney-cinderella-castle-01.jpg';
-
+    const videoSrc = movieTrailer;
   return (
         <div>
              <div style={{marginTop:'1%'}}>
@@ -29,7 +26,6 @@ import {VideoFrame} from '../components';
            setMovieSrc(null);
            setMovieSummary(null);
            history.goBack()}} style={{marginLeft:'1%'}}>Go Back</button>
-
          <button style={{marginLeft:'10%'}}><a style={{textDecoration:'none',color: 'black'}} href={movieSrc}>Watch Movie</a></button>
 
         </div>

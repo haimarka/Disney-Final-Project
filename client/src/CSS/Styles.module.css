@@ -1,18 +1,9 @@
-/* body{
-    background-image: url('https://lumiere-a.akamaihd.net/v1/images/eu_encanto_hero_v2_m_7b8a6146.jpeg?region=0,0,750,564&width=600');
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
 .linksContainer{
     background-color: rgb(1, 35, 131);
     display: flex;
     justify-content: flex-start;
     justify-content: space-evenly;
     height: 7vh;
-    /* border: solid 3px black; */
-    /* box-shadow: #1c19bb 0 -6px 8px inset; */
-
-
 }
   
 .links{
@@ -20,7 +11,6 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bolder;
     font-size: 110%;
-    
 }
 
 #logo{
@@ -28,7 +18,6 @@
     margin-left: -49%;
     margin-top: 1%;
     z-index: 1;
-
 }
 
 .accessibilty{
@@ -40,7 +29,6 @@
     width: 70px;
     height: 70px;   
     z-index: 1;
-
 }
 
 .accessibilty:hover{
@@ -74,7 +62,6 @@
     z-index: 4;
     font-size: 400%;
     transition: 5s;
-  
 }
 
 .cardsContainer {
@@ -229,11 +216,6 @@
 
 }
 
-/* .contactUsImage{
-    margin-left: -22%;
-    width: 150px;
-} */
-
 .contactUsTitle{
     position: absolute;
     margin-left: 23%;
@@ -247,7 +229,6 @@
     padding: 1%;
     width: 15%;
     height: 25%;
-    /* background-color: lightgreen; */
 }
 
 .signOutBtn {
@@ -294,8 +275,8 @@
 
   .allMoviesContainer a{
       position: relative;
-      /* height: 50vh; */
   }
+
 .allMovies{
     width: 250px;
     height: 400px;
@@ -307,7 +288,6 @@
 .allMovies:hover{
     box-shadow: 20px 20px 20px lightBlue;
     transition: 1s;
-
 }
 
 .movieConteiner{
@@ -315,7 +295,6 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     width: 100%;
-
 }
 
 .cardCointeiner{
@@ -324,13 +303,7 @@
     width: 20%;
     margin-top: 1%;
     transition: 1s;
-
 }
-
-/* .movieConteiner:hover{
-    border: solid 3px rgb(0, 0, 0);
-
-} */
 
 .movieCard{
     width: 99%;
@@ -341,9 +314,6 @@
 th{
     background-color: lightgreen;
 }
-/* a{
-    position: relative;
-} */
 
 .beforeHover{
     position: absolute;
@@ -359,7 +329,6 @@ th{
     top: 45%;
     z-index: 1;
     transition: 1s;
-
 }
 
 .aboutFather{
@@ -395,7 +364,6 @@ th{
 .aboutList{
     font-style: italic;
     transition: 1s;
-
 }
 
 .aboutList:hover{
@@ -408,7 +376,6 @@ th{
 
 .homeConteiner{
     background-image: url('https://m.media-amazon.com/images/I/61CDI-yprvL.jpg');
-    /* height: 100vh;  */
 }
 
 .cartConteiner{

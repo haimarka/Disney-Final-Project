@@ -34,7 +34,7 @@ export default function WatchAtHome({setMovieSrc, setMovieTrailer
         return (
           movie.name.toLowerCase().includes(searchInput.toLowerCase())
         );
-      });
+    });
 
     return(
         <div>

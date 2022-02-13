@@ -17,7 +17,6 @@ export default function WatchList({fontIncrease, colorReversal
   }
 
   const removeMovieFromWatchList = (i,movie) => {
-    //  {...usersData,cart:[...usersData.cart,product]}
     let tempWatchList = [...usersData.watchList];
     tempWatchList.splice(i,1);
     axios

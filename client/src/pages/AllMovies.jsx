@@ -11,7 +11,6 @@ export default function AllMovies({fontIncrease, colorReversal, usersData, auth,
     watchAtHome: false,
     moreMovies: false
   });
-  
 
   const allMoviesData = {
     selectedMovies: {
@@ -45,7 +44,6 @@ export default function AllMovies({fontIncrease, colorReversal, usersData, auth,
       alt:'Aladin'
     }
   };
-
 
   const changeHoverState=(key,state)=>{
     const stateClone = {...hoverState, [key]:state};

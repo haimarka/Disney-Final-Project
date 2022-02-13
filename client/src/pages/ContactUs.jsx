@@ -8,7 +8,6 @@ export default function ContactUs() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [messagesData, setMessagesData] = useState(null);
-    const [submitImage, setSubmitImage] = useState(false);
     useEffect(()=>{
       getMessages()
     },[]);

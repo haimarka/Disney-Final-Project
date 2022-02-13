@@ -32,7 +32,6 @@ export default function Store({
       })        
         .catch(err=>console.log(err.response))
       }
-
       const updateProdact = (id)=>{
         let temp = [...productsData];
         const updateProduct = { name, price, img: imageUrl, added:false}
@@ -56,19 +55,6 @@ export default function Store({
         })
         .catch(err=>console.log(err.response))
       }
-
-      // const removeProductFromCart = (product,i) => { 
-      //   let tempCart = [...usersData.cart];
-      //   tempCart.splice(i,1);
-      //   axios 
-      //   .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,product)
-      //   .then(res=>{
-      //       console.log(res);
-      //       setUsersData(tempCart);
-      //   })
-      //   .catch(err=>console.log(err.response))
-      // }
-
       const removeProductFromCart = (i,product) => {
         let tempCart = [...usersData.cart];
         tempCart.splice(i,1);
@@ -145,24 +131,4 @@ export default function Store({
         </section>
     </div>
   );
-
-  // return (
-  //   <div>
-  //       <CreateNewProduct 
-  //              addProducts={addProducts}
-  //              subtractProducts={subtractProducts}
-  //              fontIncrease={fontIncrease}
-  //              colorReversal={colorReversal}
-  //              cartTotalPrice={cartTotalPrice}
-  //              cartTotalQuantity={cartTotalQuantity} 
-  //              productsData={productsData} 
-  //              setProductsData={setProductsData}
-  //              usersData={usersData}
-  //              setUsersData={setUsersData}
-  //              getProducts={getProducts}
-  //              updateProdact={updateProdact}
-  //              auth={auth}
-  //              />
-  //   </div>
-  // );
 }

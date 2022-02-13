@@ -19,8 +19,8 @@ export default function Home({auth, fontIncrease, colorReversal}) {
         setMessage(false)
           }, 4000))
       }
-
-      clearMassageHandler()
+      
+    clearMassageHandler()
   let styleMessage = {display: message?'block':'none'}  
   return (
     <div className={Styles.homeConteiner}>

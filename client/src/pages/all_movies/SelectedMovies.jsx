@@ -37,6 +37,7 @@ export default function SelectedMovies({ setMovieTrailer,
       movie.name.toLowerCase().includes(searchInput.toLowerCase())
     );
   });
+  
   return(
     <div>
         <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>Selected Movies</h1>

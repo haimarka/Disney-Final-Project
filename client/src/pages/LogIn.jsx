@@ -16,7 +16,6 @@ export default function LogIn({auth, setAuth,getUsers}) {
         return <Redirect to='/'/>
     }
 
-
     function logInUser (){
         axios
         .post(URL,{
@@ -33,13 +32,9 @@ export default function LogIn({auth, setAuth,getUsers}) {
         })
     }
 
-  
-    
-    
   return (
         <div>
             <h1>Log In</h1>
-            <img src="" alt="" />
                 <section className={Styles.logInConteiner}>
                     <form onSubmit={(e)=>{
                             e.preventDefault();
