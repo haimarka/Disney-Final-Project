@@ -29,7 +29,7 @@ export default function WatchList({fontIncrease, colorReversal
     .catch(err=>console.log(err.response))
   }
 
-const elements = usersData.watchList.map((movie,i)=>{
+const elements = usersData.watchList?usersData.watchList.map((movie,i)=>{
     if(movie.added){
     return (
         <section key={i} className={Styles.cardCointeiner} >
@@ -40,7 +40,7 @@ const elements = usersData.watchList.map((movie,i)=>{
         </section>
         )
     }
-})
+}):<div></div>;
   return (
     <div>
         <h2>watch List</h2>

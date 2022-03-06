@@ -57,10 +57,11 @@ export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal
                     )
                 }
                 })}</div>
+                {auth.email == '1@1.1'?
                 <CreateNewMovie
                  moviesData={moviesData} 
                  setMoviesData={setMoviesData}
-                  defaultCategory='FamilyMovies'/>
+                  defaultCategory='FamilyMovies'/>:''}
       <button onClick={()=>setGoBack(true)}>Go Back</button>
     </div>
   );

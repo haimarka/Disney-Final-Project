@@ -13,7 +13,7 @@ export default function Store({
     const [price, setPrice] = useState('')
     const [imageUrl, setImageUrl] = useState('')
     const [Disable,setDisable] = useState(false);
-    const [showForm, setShowForm] = useState(false);
+    const [showForm, setShowForm] = useState(null);
     const [id, setId] = useState('');
 
       const isValid = ()=>{
@@ -34,6 +34,8 @@ export default function Store({
       }
       const updateProdact = (id)=>{
         let temp = [...productsData];
+        let detailsProduct={}
+        
         const updateProduct = { name, price, img: imageUrl, added:false}
         temp.push(updateProduct);
 
@@ -48,6 +50,7 @@ export default function Store({
         })
       }
       const addProductToCart = (product) => {
+        if(auth){
         axios 
         .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,product)
         .then(res=>{
@@ -55,7 +58,12 @@ export default function Store({
         })
         .catch(err=>console.log(err.response))
       }
+      else{
+        alert('sign in or sign up')
+      }
+      }
       const removeProductFromCart = (i,product) => {
+        if(auth){
         let tempCart = [...usersData.cart];
         tempCart.splice(i,1);
         axios 
@@ -66,6 +74,11 @@ export default function Store({
         })
         .catch(err=>console.log(err.response))
       }
+      else{
+        alert('sign in or sign up')
+      }
+      }
+      console.log(productsData);
 
       const elements = productsData.map((product,i)=>{
         return (
@@ -77,14 +90,14 @@ export default function Store({
                     <img onClick={()=>{
                       subtractProducts(i);
                       removeProductFromCart(product,i);
-                      }} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/>
+                      }} width='30px' height='30px' src='https://img.icons8.com/ios-filled/344/minus.png'/>
                     <img onClick={()=>{
                       addProductsToStore(i);
                       addProductToCart(product);
-                      }} width='30px' height='30px' src='https://cdn-icons.flaticon.com/png/512/1008/premium/1008978.png?token=exp=1644335628~hmac=e0e6ddd7be4532076af0125b94e393d1'/>
+                      }} width='30px' height='30px' src='https://img.icons8.com/ios-filled/344/plus.png'/>
                     <p>{product.message}</p>
                     
-                    {showForm?
+                    {showForm == product._id?
                     <form onSubmit={(e)=>{
                     e.preventDefault();
                     if(isValid){
@@ -100,7 +113,10 @@ export default function Store({
                     <button onClick={()=>setShowForm(false)}>hide edit</button>
                     </form>:
                     <button onClick={()=>{
-                      setShowForm(true);
+                      setShowForm(product._id);
+                      setName(product.name)
+                      setPrice(product.price)
+                      setImageUrl(product.img)
                       setId(product._id);
                       }}>edit</button>}
                 </div>)

@@ -11,6 +11,7 @@ export default function Cart({
     const removeProductFromCart = (i,product) => {
       let tempCart = [...usersData.cart];
       tempCart.splice(i,1);
+      console.log(tempCart);
       axios 
       .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,product)
       .then(res=>{
@@ -19,8 +20,7 @@ export default function Cart({
       })
       .catch(err=>console.log(err.response))
     }
-    
-    const elements = usersData.cart.map((product,i)=>{
+    const elements = usersData.cart?usersData.cart.map((product,i)=>{
     if(product.added){
     return (<tr key={i}>
                 <td>{product.name}</td>
@@ -28,7 +28,7 @@ export default function Cart({
                 <td>{product.quantity}</td>
                 <td><img width='150px' height='150px' src={product.img}/></td>
                 <td><img onClick={()=>{subtractProducts(i);removeProductFromCart(i,product)}} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/></td>
-        </tr>)}})
+        </tr>)}}):<tr></tr>;
  
 
   return (
