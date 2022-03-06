@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link} from 'react-router-dom';
 import Styles from '../CSS/Styles.module.css'
-import CreateNewUser from '../components/CreateNewUser';
 
 export default function AllMovies({fontIncrease, colorReversal, usersData, auth, setUsersData}) {   
   const [hoverState, setHoverState] = useState({
@@ -66,11 +65,6 @@ export default function AllMovies({fontIncrease, colorReversal, usersData, auth,
               <h3 className={hoverState[key]?Styles.afterHover:Styles.beforeHover}>{allMoviesData[key].text}</h3>
           </Link>
         )}
-        <CreateNewUser 
-          auth={auth}
-          usersData={usersData} 
-          setUsersData={setUsersData}
-           />
     </div>
   );
 }

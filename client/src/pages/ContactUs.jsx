@@ -37,8 +37,8 @@ export default function ContactUs() {
 
   return (
     <div className={Styles.contactUsContainer}>
+      <img className={Styles.contactUsImage} src='https://www.wallpaperup.com/uploads/wallpapers/2017/07/09/1094123/d013aa85facfc7d311f8d24b629dba54-700.jpg' alt='Monsters INC'/>
       <h1 className={Styles.contactUsTitle}>Contact Us</h1>
-      {/* <img className={Styles.contactUsImage} src="https://www.disneyclips.com/images/images/pluto-christmas4.png" alt="plooto hold latter" /> */}
        <section className={Styles.contactUsFormContainer}>
           <h4>Leave your personal details and we will contact you soon</h4>
             <form onSubmit={(e)=>{
@@ -52,13 +52,14 @@ export default function ContactUs() {
                 <input type="submit" value="send" />
             </form>
        </section>
-          <div>
+          <div className={Styles.contactUsDetailes}>
             {messagesData !== null && messagesData.map((mes,i)=>{
                   return(
                       <div key={i}>
-                        <p>{mes.name}</p>
-                        <p>{mes.email}</p>
+                        <h3>{mes.name}</h3>
+                        <h3>{mes.email}</h3>
                         <p>{mes.message}</p>
+                        <hr/>
                       </div>
                   )
                 })}

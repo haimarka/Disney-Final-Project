@@ -12,11 +12,11 @@ export default function About({fontIncrease, colorReversal}) {
                   will take a part of a big jurny to the hero within them, and we belive thet by watching ower movies they cen be a 
                   better people and more Optimistic.
                 </p>
-                <ol className={Styles.aboutList}>
-                  <h4>with the expiriens of ower site the users get some bonuses :</h4>
+                <ul className={Styles.aboutList}>
+                  <h4>With the experience of our site, users receive bonuses such as:</h4>
                   <li> movies with the higher view quality (HD).</li>
                   <li> Personal assistance regarding problems on the site.</li>
-                </ol>
+                </ul>
         </div>
     </div>
   );

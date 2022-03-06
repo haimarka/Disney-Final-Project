@@ -39,7 +39,7 @@ export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal
   });
 
     return (
-      <div>
+      <div className={Styles.categoryContainer}>
         <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>Family Movies</h1>
         <h3 className={Styles.search} style={{color: colorReversal? 'white':'black',transition:'1s'}}>search:</h3>
         <input className={Styles.searchInput} type="text" placeholder='search' onChange={(e)=>{setSearchInput(e.target.value)}} />

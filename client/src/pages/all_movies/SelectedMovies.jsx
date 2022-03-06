@@ -39,7 +39,7 @@ export default function SelectedMovies({ setMovieTrailer,
   });
   
   return(
-    <div>
+    <div className={Styles.categoryContainer}>
         <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>Selected Movies</h1>
         <h3 className={Styles.search} style={{color: colorReversal? 'white':'black',transition:'1s'}}>search:</h3>
         <input className={Styles.searchInput} type="text" placeholder='search' onChange={(e)=>{setSearchInput(e.target.value)}} />
@@ -59,10 +59,11 @@ export default function SelectedMovies({ setMovieTrailer,
           }
                 })}</div>
                 
+                {auth.email == '1@1.1'?
                 <CreateNewMovie
-                 moviesData={moviesData} 
-                 setMoviesData={setMoviesData}
-                  defaultCategory='FamilyMovies'/>
+                moviesData={moviesData} 
+                setMoviesData={setMoviesData}
+                defaultCategory='SelectedMovies'/>:''}
          <button onClick={()=>setGoBack(true)}>Go Back</button>
       
        </div>

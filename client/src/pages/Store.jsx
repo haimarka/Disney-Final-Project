@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import Styles from '../CSS/Styles.module.css'
 // import CreateNewProduct from '../components/CreateNewProduct';
@@ -12,6 +12,8 @@ export default function Store({
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [imageUrl, setImageUrl] = useState('')
+    const [message, setMessage] = useState('')
+    const [quantity, setQuantity] = useState(0)
     const [Disable,setDisable] = useState(false);
     const [showForm, setShowForm] = useState(null);
     const [id, setId] = useState('');
@@ -22,7 +24,7 @@ export default function Store({
       }
       const postProducts = ()=>{
         let temp = [...productsData];
-        const newProduct = { name, price, img: imageUrl, added:false};
+        const newProduct = { name, price, img: imageUrl, quantity: quantity, message: message, added:false};
         temp.push(newProduct); 
         axios
         .post('http://localhost:8082/products',newProduct)
@@ -34,9 +36,7 @@ export default function Store({
       }
       const updateProdact = (id)=>{
         let temp = [...productsData];
-        let detailsProduct={}
-        
-        const updateProduct = { name, price, img: imageUrl, added:false}
+        const updateProduct = { name, price, img: imageUrl, quantity: quantity, message: message, added:false}
         temp.push(updateProduct);
 
         axios
@@ -54,6 +54,7 @@ export default function Store({
         axios 
         .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,product)
         .then(res=>{
+          console.log(res);
             setUsersData( {...usersData,cart:[...usersData.cart,product]});
         })
         .catch(err=>console.log(err.response))
@@ -78,7 +79,8 @@ export default function Store({
         alert('sign in or sign up')
       }
       }
-      console.log(productsData);
+      
+      console.log(auth);
 
       const elements = productsData.map((product,i)=>{
         return (
@@ -107,6 +109,8 @@ export default function Store({
                     }}>
                     <input onChange={(e)=>{setName(e.target.value);setDisable(isValid())}} defaultValue={product.name} type="text" placeholder='enter name' /><br />
                     <input onChange={(e)=>{setPrice(e.target.value);setDisable(isValid())}} defaultValue={product.price} type="number" placeholder='enter price' /><br />
+                    <input onChange={(e)=>{setQuantity(e.target.value);setDisable(isValid())}} defaultValue={product.quantity} type='number' placeholder='enter quantity' /><br />
+                    <input onChange={(e)=>{setMessage(e.target.value);setDisable(isValid())}} defaultValue={product.message} type='text' placeholder='enter message' /><br />
                     <input onChange={(e)=>{setImageUrl(e.target.value);setDisable(isValid())}} defaultValue={product.img} type='text' placeholder='enter image URL' /><br />
                     <input disabled={true} defaultValue={false}/><br />
                     <input disabled={isValid()?!Disable:Disable} type="submit" value="update" /><br /><br />
@@ -126,11 +130,14 @@ export default function Store({
         <h1 style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>Store</h1>
         <section className={Styles.displayProducts}>
            {elements}
-           <h2>total Quantity: {cartTotalQuantity}</h2>
-           <h2>total Price: {cartTotalPrice}</h2>
+           {/* <h2>total Quantity: {cartTotalQuantity}</h2>
+           <h2>total Price: {cartTotalPrice}</h2> */}
         </section>
-          <section>
+        {/* {auth.email == "1@1.1"? */}
+          <section style={{marginTop:'400px'}}>
             <h1>Create New Product</h1>
+            {/* {auth.email == "1@1.1"?:''} */}
+            
             {showForm?
               <form onSubmit={(e)=>{
                 e.preventDefault();
@@ -138,12 +145,14 @@ export default function Store({
               }}>
                   <input onBlur={(e)=>setName(e.target.value)} type="text" placeholder='enter name' /><br />
                   <input onBlur={(e)=>setPrice(e.target.value)} type="number" placeholder='enter price' /><br />
+                  <input onBlur={(e)=>setQuantity(e.target.value)} type="number" placeholder='enter quantity' /><br />
+                  <input onBlur={(e)=>setMessage(e.target.value)} type="text" placeholder='enter message' /><br />
                   <input onBlur={(e)=>setImageUrl(e.target.value)} type='text' placeholder='enter image URL' /><br />
                   <input disabled={true} defaultValue={false}/><br />
                   <input type="submit" value="create" /><br /><br />
                   <button onClick={()=>setShowForm(false)}>hide form</button>
               </form>:
-            <button onClick={()=>setShowForm(true)}>add product</button>}
+            <button onClick={()=>setShowForm(true)}>create product</button>}
         </section>
     </div>
   );

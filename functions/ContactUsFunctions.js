@@ -4,7 +4,7 @@ const ObjectId = MongoDB.ObjectId;
 const MongoUrl = "mongodb://localhost:27017/";
 // 'mongodb+srv://haimarka:13696377@cluster0.x00du.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const dbName = "Disney";
-const collectionName = "ContectUs"; 
+const collectionName = "ContactUs"; 
 
     const getMessages = (req, res)=>{
         MongoClient.connect(MongoUrl)
