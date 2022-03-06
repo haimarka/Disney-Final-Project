@@ -85,7 +85,7 @@ export default function Store({
       const elements = productsData.map((product,i)=>{
         return (
             <div  style={{border:'solid 3px black'}} key={i}>
-                    <img width='200px' height='200px' src={product.img} />
+                    <img className={Styles.imageTry} width='200px' height='200px' src={product.img} />
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.name}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.price}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.quantity}</p>
@@ -115,7 +115,8 @@ export default function Store({
                     <input disabled={true} defaultValue={false}/><br />
                     <input disabled={isValid()?!Disable:Disable} type="submit" value="update" /><br /><br />
                     <button onClick={()=>setShowForm(false)}>hide edit</button>
-                    </form>:
+                    </form>
+                    :
                     <button onClick={()=>{
                       setShowForm(product._id);
                       setName(product.name)

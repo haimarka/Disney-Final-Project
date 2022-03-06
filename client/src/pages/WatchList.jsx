@@ -40,7 +40,7 @@ const elements = usersData.watchList?usersData.watchList.map((movie,i)=>{
         </section>
         )
     }
-}):<h1>Nothing Added Yet</h1>;
+}):<div><h1>Nothing Added Yet</h1><hr/></div>;
 
   return (
     <div className={Styles.watchListContainer}>

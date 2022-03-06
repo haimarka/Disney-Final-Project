@@ -8,9 +8,9 @@ export default function About({fontIncrease, colorReversal}) {
         <div className={Styles.aboutConteiner}>
                 <p style={{fontSize: fontIncrease? '300%':'150%',transition:'1s',color: colorReversal ? "white" : "black"}} className={Styles.aboutParagraph}>
                   welcome to disney movies and products , by haim arka. disney have the hottest movies available to you , products
-                  from the first class and more lovley disney charecters decoreition. ower goal is to is to make sure thet ower users
-                  will take a part of a big jurny to the hero within them, and we belive thet by watching ower movies they cen be a 
-                  better people and more Optimistic.
+                  from the first class and more lovley disney charecters decoreition. our goal is to make sure thet our users
+                  will take a part of a big jurny to the hero within them, and we belive thet by watching our movies they cen be a 
+                  better people and more Optimistic. so what do you wating for?! FLY WITH US!
                 </p>
                 <ul className={Styles.aboutList}>
                   <h4>With the experience of our site, users receive bonuses such as:</h4>
