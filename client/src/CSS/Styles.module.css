@@ -31,6 +31,12 @@
     z-index: 1;
 }
 
+.accessibiltyItem {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
 .accessibilty:hover{
     opacity: 1;
     transition: 0.5s;

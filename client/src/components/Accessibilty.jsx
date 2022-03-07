@@ -1,29 +1,31 @@
 import React from "react";
 import Styles from "../CSS/Styles.module.css";
 
-export default function Accessibilty({setAccessibilyList,accessibilyList,setHighlighting,highlighting,setFontIncrease,fontIncrease,setColorReversal,colorReversal,}) {
+export default function Accessibilty({ accessibilty, setAccessibility }) {
+  const { colorReversal, fontIncrease, highlighting, hidden } = accessibilty;
+
+  const setHidden = () => setAccessibility({...accessibilty, hidden: !hidden });
+  const setFontIncrease = () => setAccessibility({...accessibilty, fontIncrease: !fontIncrease });
+  const setHighlighting = () => setAccessibility({...accessibilty, highlighting: !highlighting });
+  const setColorReversal = () => setAccessibility({...accessibilty, colorReversal: !colorReversal });
+
   return (
     <div>
         <img
           className={Styles.accessibilty}
-          onClick={() => {
-            setAccessibilyList(!accessibilyList);
-          }}
+          onClick={setHidden}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Gnome-preferences-desktop-accessibility2.svg/800px-Gnome-preferences-desktop-accessibility2.svg.png"
           alt="accessibility"
           title="accessibility"
         />
         <div
           className={Styles.accessibiltyList}
-          style={{ display: accessibilyList ? "none" : "block" }}
+          style={{ display: hidden ? "none" : "block" }}
         >
           <div>
             <img
-              width="30px"
-              height="30px"
-              onClick={() => {
-                setColorReversal(!colorReversal);
-              }}
+              className={Styles.accessibiltyItem}
+              onClick={setColorReversal}
               src={
                 colorReversal
                   ? "https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/344/external-colors-photography-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png"
@@ -35,11 +37,8 @@ export default function Accessibilty({setAccessibilyList,accessibilyList,setHigh
           </div>
           <div>
             <img
-              width="30px"
-              height="30px"
-              onClick={() => {
-                setFontIncrease(!fontIncrease);
-              }}
+              className={Styles.accessibiltyItem}
+              onClick={setFontIncrease}
               src={
                 fontIncrease
                   ? "https://icons.iconarchive.com/icons/icons8/ios7/512/Editing-Decrease-Font-icon.png"
@@ -51,11 +50,8 @@ export default function Accessibilty({setAccessibilyList,accessibilyList,setHigh
           </div>
           <div>
             <img
-              width="30px"
-              height="30px"
-              onClick={() => {
-                setHighlighting(!highlighting);
-              }}
+              className={Styles.accessibiltyItem}
+              onClick={setHighlighting}
               src={
                 highlighting
                   ? "https://cdn-icons-png.flaticon.com/512/389/389203.png"
