@@ -1,18 +1,14 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import useFetch from "./Hooks/useFetch";
-// import useFetchMovies from "./Hooks/useFetchMovies";
 import {Navigation,Accessibilty} from './components'
 import {ContactUs,About,Store,Cart, WatchList,Home,Register,LogIn,ChangePassword,AllMovies, MoviesSolution, ErrorPage } from './pages';
 import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
 import axios from 'axios';
 import "./App.css";
 import Styles from "./CSS/Styles.module.css";
-
+ 
 function App() {  
   const [auth, setAuth] = useState(null);   
-  // const [data, setData] = useFetch("./data.json");
-  // const [moviesData] = useFetchMovies("./moviesData.json");
   const [colorReversal, setColorReversal] = useState(false);
   const [fontIncrease, setFontIncrease] = useState(false);
   const [highlighting, setHighlighting] = useState(false);
@@ -307,7 +303,6 @@ return (
                 usersData={usersData}
                 setUsersData={setUsersData}
                 getProducts={getProducts}
-                setProductsData={setProductsData}
                 calculatePrice={calculatePrice}
                 addProductsToStore={addProductsToStore}
                 auth={auth}

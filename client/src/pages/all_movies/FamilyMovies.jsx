@@ -57,7 +57,7 @@ export default function FamilyMovies({setMovieSrc, setMovieTrailer,colorReversal
                     )
                 }
                 })}</div>
-                {auth.email == '1@1.1'?
+                {auth && auth.email == '1@1.1'?
                 <CreateNewMovie
                  moviesData={moviesData} 
                  setMoviesData={setMoviesData}
