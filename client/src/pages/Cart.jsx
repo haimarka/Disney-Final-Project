@@ -44,7 +44,7 @@ export default function Cart({
 
 
     </tr>
-        {elements}
+        {elements&& elements.length?elements:<h3>Nothing Added Yet</h3>}
         </tbody>
     </table>
         <h2>total Quantity: {cartTotalQuantity}</h2>
