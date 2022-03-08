@@ -9,19 +9,26 @@ import Styles from "./CSS/Styles.module.css";
  
 function App() {  
   const [auth, setAuth] = useState(null);   
-  const [colorReversal, setColorReversal] = useState(false);
-  const [fontIncrease, setFontIncrease] = useState(false);
-  const [highlighting, setHighlighting] = useState(false);
-  const [accessibilyList, setAccessibilyList] = useState("block");
+  const [accessibilty, setAccessibility] = useState({
+    colorReversal: false,
+    fontIncrease: false,
+    highlighting: false,
+    hidden: true,
+  });
+
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [movieSrc, setMovieSrc] = useState(null);
-  const [watchList, setWatchList] = useState(null);
   const [movieSummary, setMovieSummary] = useState(null);
+
+  const [watchList, setWatchList] = useState(null);
+
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
+
   const [moviesData, setMoviesData] = useState([])
   const [productsData, setProductsData] = useState([])  
   const [usersData, setUsersData] = useState([])
+
   const AUTH_LOCAL_STORAGE = "Users"; 
   
 const logOutHeandler = () => {
@@ -126,6 +133,8 @@ useEffect(()=>{
   }
 },[auth]);
 
+const { colorReversal, fontIncrease, highlighting } = accessibilty;
+
 return (
 <BrowserRouter >
 
@@ -139,12 +148,7 @@ return (
     width="150px"
     height="100px"
     title="disney"/>  
-        <Accessibilty 
-            setAccessibilyList={setAccessibilyList} accessibilyList={accessibilyList} 
-            setHighlighting={setHighlighting} highlighting={highlighting} 
-            setFontIncrease={setFontIncrease} fontIncrease={fontIncrease} 
-            colorReversal={colorReversal}   setColorReversal={setColorReversal}
-        />
+        <Accessibilty setAccessibility={setAccessibility} accessibilty={accessibilty} />
         {auth ? (<button title="click to sign out" className={Styles.signOutBtn} onClick={logOutHeandler}
             >
             sign out
