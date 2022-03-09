@@ -6,9 +6,10 @@ import axios from 'axios';
 
 
 export default function WatchAtHome({setMovieSrc, setMovieTrailer
-    ,colorReversal ,fontIncrease, addMovies, 
+    ,accessibilty, addMovies, 
     auth, moviesData, setMoviesData,
     usersData, setUsersData, setMovieSummary}) {
+    const { colorReversal, fontIncrease } = accessibilty;
     const [goBack, setGoBack] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory();
@@ -30,6 +31,7 @@ export default function WatchAtHome({setMovieSrc, setMovieTrailer
       .catch(err=>console.log(err.response))
     }
 
+    // useMemo
     let filteredMovies = moviesData.filter((movie) => {
         return (
           movie.name.toLowerCase().includes(searchInput.toLowerCase())
@@ -44,12 +46,23 @@ export default function WatchAtHome({setMovieSrc, setMovieTrailer
             <div className={Styles.movieConteiner}>
             {filteredMovies.map((movie,i)=>{
                 if(movie.categories === 'WatchAtHome'){
-                    return (
+                    return ( // index as key
                         <section key={i} className={Styles.cardCointeiner} >
                             <img className={Styles.movieCard} onClick={()=>{handleMovieClick(movie)}} src={movie.img}/>
                             <h3 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>{movie.name}</h3>
                             <h4 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "180%" : "150%",transition: "1s"}}>Movie Length: {movie.time}</h4>
-                            {auth?<button onClick={()=>{addMovies(i);addProductToCart(movie);console.log(movie.added)}}>add movie</button>:''}
+                            {auth?<button onClick={()=>{
+                                // race-condition!
+                                // both addMovies(i) and addProductToCart(movie) are happening at once
+                                // in this case it doesnt cause problems but its an anti-pattern
+                                //
+                                // Suggestion: 
+                                // use id/name/some unique field in movie object - try to avoid using index
+                                // call addMovies inside addProductToCart then scope - before/after setUsersData
+                                addMovies(i);
+                                addProductToCart(movie);
+                                console.log(movie.added)
+                            }}>add movie</button>:''}
                             <p>{movie.message}</p>
                         </section>
                         )

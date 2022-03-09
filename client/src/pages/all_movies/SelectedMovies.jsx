@@ -7,9 +7,10 @@ import axios from 'axios';
 
 
 export default function SelectedMovies({ setMovieTrailer,
-    setMovieSrc, colorReversal ,fontIncrease,
+    setMovieSrc, accessibilty,
     addMovies, auth, moviesData, setMoviesData,
     usersData, setUsersData, setMovieSummary}) {
+  const { colorReversal, fontIncrease } = accessibilty;
   const [goBack, setGoBack] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const history = useHistory();

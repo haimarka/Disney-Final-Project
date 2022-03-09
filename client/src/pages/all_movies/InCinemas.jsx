@@ -7,9 +7,10 @@ import axios from 'axios';
 
 
 export default function InCinemas({setMovieSrc, setMovieTrailer
-    ,colorReversal ,fontIncrease, addMovies,
+    ,accessibilty, addMovies,
      auth, moviesData, setMoviesData, usersData,
       setUsersData, setMovieSummary}) {
+    const { colorReversal, fontIncrease } = accessibilty;
     const [goBack, setGoBack] = useState(false)
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory();

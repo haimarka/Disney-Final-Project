@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link} from 'react-router-dom';
 import Styles from '../CSS/Styles.module.css'
 
-export default function AllMovies({fontIncrease, colorReversal, usersData, auth, setUsersData}) {   
+export default function AllMovies({ accessibilty}) {   
+  const { colorReversal, fontIncrease } = accessibilty;
   const [hoverState, setHoverState] = useState({
     selectedMovies: false,
     inCinemas: false,
