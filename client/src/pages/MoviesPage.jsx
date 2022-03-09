@@ -54,7 +54,7 @@ const MoviesPage = ({
 
     return <div className={Styles.categoryContainer}>
             <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>
-                {category.title}
+                {category?.title}
             </h1>
             <h3 className={Styles.search} style={{color: colorReversal? 'white':'black',transition:'1s'}}>
                 search:
