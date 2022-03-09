@@ -26,7 +26,7 @@ const MoviesPage = ({
     match
 }) => {
     const { colorReversal, fontIncrease } = accessibilty;
-    const category = match.params.category;
+    const category = match.params.category ? CATEGORIES[match.params.category] : undefined;
     const history = useHistory();
     const [searchInput, setSearchInput] = useState('');
 
@@ -48,13 +48,13 @@ const MoviesPage = ({
     const filteredMovies = useMemo(() => {
         const searched = moviesData.filter(({name}) => name.toLowerCase().includes(searchInput.toLowerCase()));
 
-        if (category) return searched.filter(({categories}) => categories === category);
+        if (category) return searched.filter(({categories}) => categories === category.value);
         else return searched;
     }, [searchInput, category, moviesData]);
 
     return <div className={Styles.categoryContainer}>
             <h1 style={{color: colorReversal? 'white':'black',fontSize: fontIncrease ? "300%" : "150%",transition: "1s"}}>
-                {CATEGORIES[category].title}
+                {category.title}
             </h1>
             <h3 className={Styles.search} style={{color: colorReversal? 'white':'black',transition:'1s'}}>
                 search:
@@ -73,7 +73,7 @@ const MoviesPage = ({
             }
             </div>
             { auth && auth.email == '1@1.1' ?
-                <CreateNewMovie moviesData={moviesData} setMoviesData={setMoviesData} defaultCategory={category}/> : null
+                <CreateNewMovie moviesData={moviesData} setMoviesData={setMoviesData} defaultCategory={category.value}/> : null
             }
             <button onClick={history.goBack}>Go Back</button>
         </div>
