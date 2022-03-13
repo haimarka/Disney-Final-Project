@@ -254,6 +254,7 @@ return (
                 setMoviesData={setMoviesData}
                 usersData={usersData}
                setUsersData={setUsersData}
+               setMovieSummary={setMovieSummary}
               />
             )}
           />
