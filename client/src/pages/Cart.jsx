@@ -1,10 +1,9 @@
-import { useEffect } from "react";
 import axios from "axios";
 import Styles from '../CSS/Styles.module.css'
 
 
 export default function Cart({
-  productsData, subtractProducts, cartTotalPrice,
+   subtractProducts, cartTotalPrice,
    cartTotalQuantity,usersData, setUsersData,
     auth}) {
       

@@ -2,32 +2,28 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {Navigation,Accessibilty} from './components'
 import {ContactUs,About,Store,Cart, WatchList,Home,Register,LogIn,ChangePassword,AllMovies, MoviesSolution, ErrorPage } from './pages';
-import {SelectedMovies,InCinemas,FamilyMovies,WatchAtHome,MoreMovies} from './pages/all_movies'
 import axios from 'axios';
 import "./App.css";
 import Styles from "./CSS/Styles.module.css";
+import useAccessibility from "./hooks/useAccessibility";
+import MoviesPage from "./pages/MoviesPage";
  
 function App() {  
   const [auth, setAuth] = useState(null);   
-  const [accessibilty, setAccessibility] = useState({
-    colorReversal: false,
-    fontIncrease: false,
-    highlighting: false,
-    hidden: true,
-  });
-
+  const accessibilty = useAccessibility(); 
+  // you can do something similar with currentMovie (movieTrailer,movieSrc,movieSummary)
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [movieSrc, setMovieSrc] = useState(null);
   const [movieSummary, setMovieSummary] = useState(null);
 
-  const [watchList, setWatchList] = useState(null);
-
+  // same for cart
   const [cartTotalPrice, setcartTotalPrice] = useState(0);
   const [cartTotalQuantity, setcartTotalQuantity] = useState(0);
 
   const [moviesData, setMoviesData] = useState([])
   const [productsData, setProductsData] = useState([])  
   const [usersData, setUsersData] = useState([])
+  const [watchList, setWatchList] = useState(null);
 
   const AUTH_LOCAL_STORAGE = "Users"; 
   
@@ -148,166 +144,59 @@ return (
     width="150px"
     height="100px"
     title="disney"/>  
-        <Accessibilty setAccessibility={setAccessibility} accessibilty={accessibilty} />
-        {auth ? (<button title="click to sign out" className={Styles.signOutBtn} onClick={logOutHeandler}
-            >
-            sign out
-          </button>
-        ) : ("")}
-        
+        <Accessibilty accessibilty={accessibilty} />
+        {auth 
+          ? <button title="click to sign out" className={Styles.signOutBtn} onClick={logOutHeandler}>
+              sign out
+            </button>
+          : null
+        }
         <Switch>
-          <Route exact path="/" render={() => (
-              <Home
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                auth={auth}
-              />
-            )}
-          />
+          <Route exact path="/" render={() => <Home accessibilty={accessibilty} auth={auth}/>}/>
           <Route exact path="/Register" render={() =>
-             <Register
-              auth={auth}
-               setAuth={setAuth}
-               usersData={usersData}
-               setUsersData={setUsersData} 
-                />}/>
-          <Route exact path="/LogIn" render={() => 
-          <LogIn 
-          auth={auth}
-           setAuth={setAuth}
-          setUsersData={setUsersData}
-            />}
-          />
-          <Route exact path="/ChangePassword" render={() => 
-          <ChangePassword
-           auth={auth} />}
-          />
-          <Route exact path="/AllMovies" render={() => (
-              <AllMovies
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                usersData={usersData}
-                auth={auth}
-                setUsersData={setUsersData}
-              />
-            )}
-          />
-          <Route exact path="/SelectedMovies" render={() => (
-              <SelectedMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth} 
-                moviesData={moviesData} 
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}  
-               setMovieSummary={setMovieSummary}
-              />
-            )}
-          />
-          <Route exact path="/InCinemas" render={() => (
-              <InCinemas
-                setMovieSrc={setMovieSrc} 
-                setMovieTrailer={setMovieTrailer}
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData} 
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-          <Route exact path="/FamilyMovies" render={() => (
-              <FamilyMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-          <Route exact path="/WatchAtHome" render={() => (
-              <WatchAtHome
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-              />
-            )}
-          />
-          <Route exact path="/MoreMovies" render={() => (
-              <MoreMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-            <Route exact path="/WatchList" render={() => ( <WatchList
-              setWatchList={setWatchList}
-              watchList={watchList}
-              fontIncrease={fontIncrease}
-              colorReversal={colorReversal}
+             <Register auth={auth} setAuth={setAuth} usersData={usersData} setUsersData={setUsersData} />
+          }/>
+          <Route exact path="/LogIn" render={() => <LogIn auth={auth} setAuth={setAuth}/>}/>
+          <Route exact path="/ChangePassword" render={() => <ChangePassword auth={auth} />}/>
+          <Route exact path="/ContactUs" render={() => <ContactUs />} />
+          <Route exact path="/About" render={() => <About accessibilty={accessibilty}/>}/>
+          <Route exact path="/AllMovies" render={() => <AllMovies accessibilty={accessibilty} />}/>
+          <Route path="/movies/:category" render={(props) => 
+            <MoviesPage {...props} 
+              setMovieSrc={setMovieSrc}
               setMovieTrailer={setMovieTrailer}
-              setMovieSrc={setMovieSrc} 
-              removeMovies={removeMovies}
-              moviesData={moviesData} 
-              auth={auth} 
+              accessibilty={accessibilty}
+              addMovies={addMovies}
+              auth={auth}
+              moviesData={moviesData}
+              setMoviesData={setMoviesData}
               usersData={usersData}
               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-            />)}/>
-
-          <Route exact path="/ContactUs" render={() => <ContactUs />} />
-          <Route exact path="/About" render={() => (<About 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                />)}/>
+              setMovieSummary={setMovieSummary}
+              />
+          }/> 
+          
+          <Route exact path="/WatchList" render={() => ( <WatchList
+            setWatchList={setWatchList}
+            accessibilty={accessibilty}
+            setMovieTrailer={setMovieTrailer}
+            setMovieSrc={setMovieSrc} 
+            removeMovies={removeMovies}
+            auth={auth} 
+            usersData={usersData}
+            setUsersData={setUsersData}
+              setMovieSummary={setMovieSummary}
+          />)}/>
+          
           <Route exact path="/Store" render={() => (
               <Store
                 subtractProducts={subtractProducts}
-                fontIncrease={fontIncrease}
-                colorReversal={colorReversal}
-                cartTotalPrice={cartTotalPrice}
-                cartTotalQuantity={cartTotalQuantity} 
+                accessibilty={accessibilty}
                 productsData={productsData} 
                 setProductsData={setProductsData}
                 usersData={usersData}
                 setUsersData={setUsersData}
                 getProducts={getProducts}
-                calculatePrice={calculatePrice}
                 addProductsToStore={addProductsToStore}
                 auth={auth}
                
@@ -319,7 +208,6 @@ return (
               subtractProducts={subtractProducts}
                 cartTotalPrice={cartTotalPrice}
                 cartTotalQuantity={cartTotalQuantity}
-                productsData={productsData}
                 usersData={usersData}
                 setUsersData={setUsersData}
                 auth={auth}
@@ -339,7 +227,7 @@ return (
               />
             )}
           />
-            <Route exact path="*" render={() => ( <ErrorPage/>)}/>
+          <Route exact path="*" render={() => ( <ErrorPage/>)}/>
 
         </Switch>{" "}
         <br />

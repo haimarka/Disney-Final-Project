@@ -4,11 +4,10 @@ import Styles from '../CSS/Styles.module.css'
 // import CreateNewProduct from '../components/CreateNewProduct';
 
 export default function Store({
-  cartTotalPrice, cartTotalQuantity, colorReversal,
-  fontIncrease, subtractProducts,
+  accessibilty, subtractProducts,
    productsData, setProductsData,
-  usersData, setUsersData, auth, calculatePrice, addProductsToStore}) {
-           
+  usersData, setUsersData, auth, addProductsToStore}) {
+    const { colorReversal, fontIncrease } = accessibilty;
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [imageUrl, setImageUrl] = useState('')
