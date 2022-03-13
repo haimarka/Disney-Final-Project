@@ -1,7 +1,8 @@
 import Styles from '../CSS/Styles.module.css'
 
 
-export default function About({fontIncrease, colorReversal}) {
+export default function About({accessibilty}) {
+  const { colorReversal, fontIncrease } = accessibilty;
   return (
     <div className={Styles.aboutFather}>
         <h1 style={{color: colorReversal ? "white" : "black",marginLeft:'-50%'}}>About Us</h1>

@@ -3,10 +3,10 @@ import React,{} from 'react';
 import { useHistory } from 'react-router-dom';
 import Styles from "../CSS/Styles.module.css";
 
-export default function WatchList({fontIncrease, colorReversal
-  , setMovieSrc, setMovieTrailer, removeMovies,
-   moviesData, watchList, auth, usersData,
+export default function WatchList({accessibilty, 
+  setMovieSrc, setMovieTrailer, removeMovies, auth, usersData,
     setUsersData, setMovieSummary}) {
+  const { colorReversal, fontIncrease } = accessibilty;
   const history = useHistory();
 
   const handleMovieClick = (movie)=>{

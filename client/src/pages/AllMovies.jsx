@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link} from 'react-router-dom';
 import Styles from '../CSS/Styles.module.css'
 
-export default function AllMovies({fontIncrease, colorReversal, usersData, auth, setUsersData}) {   
+export default function AllMovies({ accessibilty}) {   
+  const { colorReversal, fontIncrease } = accessibilty;
   const [hoverState, setHoverState] = useState({
     selectedMovies: false,
     inCinemas: false,
@@ -13,31 +14,31 @@ export default function AllMovies({fontIncrease, colorReversal, usersData, auth,
 
   const allMoviesData = {
     selectedMovies: {
-      link:'/SelectedMovies',
+      link: '/movies/selected',
       text:'selected movies',
       src: 'https://www.dvdplanetstore.pk/wp-content/uploads/2017/12/bKPtXn9n4M4s8vvZrbw40mYsefB.jpg',
       alt:'lion king'
     },
     inCinemas: {
-      link:'/InCinemas',
+      link: '/movies/cinemas',
       text:'In Cinemas',
       src:'https://media.istockphoto.com/photos/pirates-of-the-caribbean-on-stranger-tides-poster-picture-id458587791?k=20&m=458587791&s=612x612&w=0&h=fUnYvj0cF1ATx5BTI2dNyerc-g7KjxDAWUljguJhMKs=',
       alt:'jeck saprow'
     },
     familyMovies: {
-      link:'/FamilyMovies',
+      link: '/movies/family',
       text:'Family Movies',
       src:'http://www.seret.co.il/images/movies/Mulan2020/Mulan20201.jpg',
       alt:'Mulan'
     },
     watchAtHome: {
-      link:'/WatchAtHome',
+      link: '/movies/athome',
       text:'Watch At Home',
       src:'https://upload.wikimedia.org/wikipedia/he/b/b3/Toy_Story_3_Poster_Israel.jpg',
       alt:'Toy story'
     },
     moreMovies: {
-      link:'/MoreMovies',
+      link: '/movies/more',
       text:'More Movies',
       src:'https://lumiere-a.akamaihd.net/v1/images/image_edd67929.jpeg?region=0,0,540,810',
       alt:'Aladin'
