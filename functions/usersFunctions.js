@@ -128,13 +128,13 @@ const collectionName = "Users";
         })
     }
 
-    function addProductToCart(req, res) {
+    function updateCart(req, res) {
       MongoClient.connect(MongoUrl).then((db) => {
           const ID = {email:req.params.id};
           const update = req.body;
           console.log(ID,update);
           dbo = db.db(dbName)
-          dbo.collection(collectionName).findOneAndUpdate(ID, { $push: {cart: update} })
+          dbo.collection(collectionName).findOneAndUpdate(ID, { $set: {cart: update}})
           .then((addProduct) => {
               res.send(addProduct).status(200);
               console.log(addProduct);
@@ -147,22 +147,22 @@ const collectionName = "Users";
   }
 
 
-    function removeProductFromCart(req, res) {
-        MongoClient.connect(MongoUrl).then((db) => {
-            const ID = {email:req.params.id};
-            const update = req.body;
-            console.log(ID,update);
-            dbo = db.db(dbName)
-            dbo.collection(collectionName).findOneAndUpdate(ID, { $pull: {cart:update} })
-            .then((removeProduct) => {
-                res.send(removeProduct).status(200);
-            })
-        })
-            .catch((err) => {
-                console.log('not working');
-                throw err.response
-            })
-    }
+    // function removeProductFromCart(req, res) {
+    //     MongoClient.connect(MongoUrl).then((db) => {
+    //         const ID = {email:req.params.id};
+    //         const update = req.body;
+    //         console.log(ID,update);
+    //         dbo = db.db(dbName)
+    //         dbo.collection(collectionName).findOneAndUpdate(ID, { $pull: {cart:update} })
+    //         .then((removeProduct) => {
+    //             res.send(removeProduct).status(200);
+    //         })
+    //     })
+    //         .catch((err) => {
+    //             console.log('not working');
+    //             throw err.response
+    //         })
+    // }
 
     function addMovieToCart(req, res) {
         MongoClient.connect(MongoUrl).then((db) => {
@@ -203,5 +203,5 @@ const collectionName = "Users";
 
 
     module.exports = {getUsers, createUser, deleteUser, updateSingleUser,
-         getUserCart, addProductToCart, deleteProductFromCart,
-         getSingleUser, removeProductFromCart, addMovieToCart, removeMovieFromCart}
+         getUserCart, updateCart, deleteProductFromCart,
+         getSingleUser, addMovieToCart, removeMovieFromCart}

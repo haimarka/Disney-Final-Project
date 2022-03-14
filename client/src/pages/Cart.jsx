@@ -7,18 +7,23 @@ export default function Cart({
    cartTotalQuantity,usersData, setUsersData,
     auth}) {
       
-    const removeProductFromCart = (i,product) => {
+    const removeProductFromCart = (product) => {
       let tempCart = [...usersData.cart];
-      tempCart.splice(i,1);
-      console.log(tempCart);
+      const i = tempCart.findIndex((p)=>p._id === product._id )
+      if(tempCart[i].quantity > 1){
+        tempCart[i].quantity--;
+      }else{
+        tempCart.splice(i,1)
+      }
       axios 
-      .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,product)
+      .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,tempCart)
       .then(res=>{
           console.log(res);
           setUsersData({...usersData,cart:tempCart});
       })
       .catch(err=>console.log(err.response))
     }
+    
     const elements = usersData.cart?usersData.cart.map((product,i)=>{
     if(product.added){
     return (<tr key={i}>
@@ -26,7 +31,7 @@ export default function Cart({
                 <td>{product.price}</td>
                 <td>{product.quantity}</td>
                 <td><img width='150px' height='150px' src={product.img}/></td>
-                <td><img onClick={()=>{subtractProducts(i);removeProductFromCart(i,product)}} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/></td>
+                <td><img onClick={()=>{subtractProducts(product._id);removeProductFromCart(product)}} width='30px' height='30px' src='https://cdn-icons-png.flaticon.com/512/1828/1828899.png'/></td>
         </tr>)}}):<tr></tr>;
  
 

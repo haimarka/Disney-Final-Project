@@ -89,11 +89,7 @@ app.patch('/users/:id',(req,res)=>{
 
 //users Cart
 app.patch("/users/cart/patch/push/:id",(req,res)=>{
-    usersFunctions.addProductToCart(req,res);
-});
-
-app.patch("/users/cart/patch/pull/:id",(req,res)=>{
-    usersFunctions.removeProductFromCart(req,res);
+    usersFunctions.updateCart(req,res);
 });
 
 app.delete('/users/cart/delete/:id',(req,res)=>{

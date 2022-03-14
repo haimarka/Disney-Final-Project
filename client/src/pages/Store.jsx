@@ -50,11 +50,18 @@ export default function Store({
       }
       const addProductToCart = (product) => {
         if(auth){
+          let tempCart = [...usersData.cart];
+          const i = tempCart.findIndex(p => p._id === product._id)
+          if(i === -1){
+            tempCart.push({...product,quantity:1})
+          }else{
+            tempCart[i].quantity++;
+          }
         axios 
-        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,product)
+        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,tempCart)
         .then(res=>{
           console.log(res);
-            setUsersData( {...usersData,cart:[...usersData.cart,product]});
+            setUsersData( {...usersData,cart:tempCart});
         })
         .catch(err=>console.log(err.response))
       }
@@ -62,12 +69,18 @@ export default function Store({
         alert('sign in or sign up')
       }
       }
-      const removeProductFromCart = (i,product) => {
+      const removeProductFromCart = (product) => {
         if(auth){
         let tempCart = [...usersData.cart];
-        tempCart.splice(i,1);
+        const i = tempCart.findIndex((p)=>p._id === product._id );
+        if(tempCart[i].quantity > 1){
+          tempCart[i].quantity--;
+        }else{
+          tempCart.splice(i,1)
+        }
+        
         axios 
-        .patch(`http://localhost:8082/users/cart/patch/pull/${auth.email}`,product)
+        .patch(`http://localhost:8082/users/cart/patch/push/${auth.email}`,tempCart)
         .then(res=>{
             console.log(res);
             setUsersData({...usersData,cart:tempCart});
@@ -75,7 +88,7 @@ export default function Store({
         .catch(err=>console.log(err.response))
       }
       else{
-        alert('sign in or sign up')
+        alert('sign in or sign up first')
       }
       }
       
@@ -89,11 +102,11 @@ export default function Store({
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.price}</p>
                     <p style={{color: colorReversal ? "white" : "black",fontSize: fontIncrease? '300%':'150%'}}>{product.quantity}</p>
                     <img onClick={()=>{
-                      subtractProducts(i);
-                      removeProductFromCart(product,i);
+                      subtractProducts(product._id);
+                      removeProductFromCart(product);
                       }} width='30px' height='30px' src='https://img.icons8.com/ios-filled/344/minus.png'/>
                     <img onClick={()=>{
-                      addProductsToStore(i);
+                      addProductsToStore(product._id);
                       addProductToCart(product);
                       }} width='30px' height='30px' src='https://img.icons8.com/ios-filled/344/plus.png'/>
                     <p>{product.message}</p>

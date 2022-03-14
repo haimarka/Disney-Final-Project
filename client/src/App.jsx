@@ -87,9 +87,10 @@ const getProducts = ()=>{
   .catch(err=>console.log(err))
 }
 
-const addProductsToStore = (i)=>{
+const addProductsToStore = (id)=>{
   if(auth){
   let temp = [...productsData];
+  const i = temp.findIndex((p)=>p._id === id )
   temp[i].added = true;
   temp[i].quantity++;
   temp[i].message = 'added to your cart';
@@ -97,8 +98,9 @@ const addProductsToStore = (i)=>{
   }
 }
 
-const subtractProducts = (i)=>{
+const subtractProducts = (id)=>{
     let temp = [...productsData];
+    const i = temp.findIndex((p)=>p._id === id )
     temp[i].quantity --;
     temp[i].added = temp[i].quantity > 0;
     if(temp[i].quantity <= 0) temp[i].quantity = 0;
@@ -154,123 +156,6 @@ return (
         <Switch>
           <Route exact path="/" render={() => <Home accessibilty={accessibilty} auth={auth}/>}/>
           <Route exact path="/Register" render={() =>
-<<<<<<< HEAD
-             <Register
-              auth={auth}
-               setAuth={setAuth}
-               usersData={usersData}
-               setUsersData={setUsersData} 
-                />}/>
-          <Route exact path="/LogIn" render={() => 
-          <LogIn 
-          auth={auth}
-           setAuth={setAuth}
-          setUsersData={setUsersData}
-            />}
-          />
-          <Route exact path="/ChangePassword" render={() => 
-          <ChangePassword
-           auth={auth} />}
-          />
-          <Route exact path="/AllMovies" render={() => (
-              <AllMovies
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                usersData={usersData}
-                auth={auth}
-                setUsersData={setUsersData}
-              />
-            )}
-          />
-          <Route exact path="/SelectedMovies" render={() => (
-              <SelectedMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth} 
-                moviesData={moviesData} 
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}  
-               setMovieSummary={setMovieSummary}
-              />
-            )}
-          />
-          <Route exact path="/InCinemas" render={() => (
-              <InCinemas
-                setMovieSrc={setMovieSrc} 
-                setMovieTrailer={setMovieTrailer}
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData} 
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-          <Route exact path="/FamilyMovies" render={() => (
-              <FamilyMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-          <Route exact path="/WatchAtHome" render={() => (
-              <WatchAtHome
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-              />
-            )}
-          />
-          <Route exact path="/MoreMovies" render={() => (
-              <MoreMovies
-                setMovieTrailer={setMovieTrailer}
-                setMovieSrc={setMovieSrc} 
-                colorReversal={colorReversal}
-                fontIncrease={fontIncrease}
-                addMovies={addMovies}
-                auth={auth}
-                moviesData={moviesData}
-                setMoviesData={setMoviesData}
-                usersData={usersData}
-               setUsersData={setUsersData}
-               setMovieSummary={setMovieSummary}
-
-              />
-            )}
-          />
-            <Route exact path="/WatchList" render={() => ( <WatchList
-              setWatchList={setWatchList}
-              watchList={watchList}
-              fontIncrease={fontIncrease}
-              colorReversal={colorReversal}
-=======
              <Register auth={auth} setAuth={setAuth} usersData={usersData} setUsersData={setUsersData} />
           }/>
           <Route exact path="/LogIn" render={() => <LogIn auth={auth} setAuth={setAuth}/>}/>
@@ -278,10 +163,10 @@ return (
           <Route exact path="/ContactUs" render={() => <ContactUs />} />
           <Route exact path="/About" render={() => <About accessibilty={accessibilty}/>}/>
           <Route exact path="/AllMovies" render={() => <AllMovies accessibilty={accessibilty} />}/>
+
           <Route path="/movies/:category" render={(props) => 
             <MoviesPage {...props} 
               setMovieSrc={setMovieSrc}
->>>>>>> b9f8e8594c9d4c78815a57ee7cb246a604c6c8ae
               setMovieTrailer={setMovieTrailer}
               accessibilty={accessibilty}
               addMovies={addMovies}
